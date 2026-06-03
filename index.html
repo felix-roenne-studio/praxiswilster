@@ -563,6 +563,45 @@
       line-height: 1.5;
     }
 
+    /* ─── PRAXIS GALLERY ────────────────────── */
+    .gallery {
+      margin-top: var(--s6);
+    }
+    .gallery__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 220px 220px;
+      gap: 8px;
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .gallery__item {
+      overflow: hidden;
+      position: relative;
+    }
+    .gallery__item:first-child {
+      grid-row: span 2;
+    }
+    .gallery__item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 600ms cubic-bezier(0.16,1,0.3,1);
+    }
+    .gallery__item:hover img {
+      transform: scale(1.04);
+    }
+    @media (max-width: 768px) {
+      .gallery__grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 160px 160px 160px;
+      }
+      .gallery__item:first-child {
+        grid-column: span 2;
+        grid-row: span 1;
+      }
+    }
+
     /* ─── SPRECHZEITEN TABLE ─────────────────── */
     .hours__layout {
       display: grid;
@@ -1109,6 +1148,28 @@
             </div>
           </div>
         </div>
+
+        <!-- Praxis-Galerie -->
+        <div class="gallery reveal reveal--fade">
+          <div class="gallery__grid">
+            <div class="gallery__item">
+              <img src="images/Wartezimmer.jpeg" alt="Wartezimmer der Praxis" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="images/Flur.jpeg" alt="Eingangsbereich" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="images/Flur2.jpeg" alt="Flur der Praxis" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="images/Wartezimmer2.jpeg" alt="Wartezimmer" loading="lazy">
+            </div>
+            <div class="gallery__item">
+              <img src="images/Rathausstrasse.jpg" alt="Praxis von außen, Rathausstraße Wilster" loading="lazy">
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
 
