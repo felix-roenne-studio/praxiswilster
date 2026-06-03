@@ -365,6 +365,37 @@
     .hero__card-phone-number:hover { color: var(--primary-dark); }
 
     /* ─── SECTION BASE ───────────────────────── */
+    /* ── Aktuelles ── */
+    .aktuelles { padding: var(--s6) 0; }
+    .aktuelles[hidden] { display: none; }
+    .aktuelles__grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: var(--s3);
+      margin-top: var(--s4);
+    }
+    .aktuelles__card {
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.07);
+      border-radius: 12px;
+      padding: var(--s3) var(--s4);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .aktuelles__card-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--primary-dark);
+      line-height: 1.4;
+    }
+    .aktuelles__card-text {
+      font-size: 14px;
+      font-weight: 300;
+      color: #444;
+      line-height: 1.7;
+    }
+
     .section { padding: var(--s7) 0; }
     .section--alt { background: var(--bg); }
     .section--dark { background: var(--bg-dark); color: #fff; }
@@ -904,6 +935,17 @@
       </div>
     </section>
 
+    <!-- ═══ AKTUELLES ═══════════════════════════════ -->
+    <section class="aktuelles" id="aktuelles" aria-labelledby="aktuelles-heading" hidden>
+      <div class="container">
+        <header class="section__header reveal reveal--fade">
+          <span class="section__eyebrow">Hinweise</span>
+          <h2 class="section__title" id="aktuelles-heading">Aktuelles</h2>
+        </header>
+        <div class="aktuelles__grid" id="aktuelles-grid"></div>
+      </div>
+    </section>
+
     <!-- ═══ LEISTUNGEN ════════════════════════════ -->
     <section class="section" id="leistungen" aria-labelledby="leistungen-heading">
       <div class="container">
@@ -1280,6 +1322,27 @@
       { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
     );
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+    // Aktuelles
+    fetch('/content.json')
+      .then(r => r.json())
+      .then(data => {
+        const items = data.aktuelles || [];
+        if (!items.length) return;
+        const section = document.getElementById('aktuelles');
+        const grid    = document.getElementById('aktuelles-grid');
+        items.forEach(item => {
+          const card = document.createElement('div');
+          card.className = 'aktuelles__card';
+          card.innerHTML = `
+            <div class="aktuelles__card-title">${item.title || ''}</div>
+            ${item.text ? `<div class="aktuelles__card-text">${item.text}</div>` : ''}
+          `;
+          grid.appendChild(card);
+        });
+        section.removeAttribute('hidden');
+      })
+      .catch(() => {});
   </script>
 </body>
 </html>

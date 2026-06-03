@@ -3,274 +3,436 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin — Praxiswilster</title>
+    <title>Admin — Felix Rönne Studio</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
     <style>
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html, body { height: 100%; }
 
         body {
-            font-family: 'Noto Sans', sans-serif;
-            background: #0C3D3A;
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #111;
             color: #fff;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
             min-height: 100vh;
-            padding: 24px;
+            padding: 60px 24px;
         }
 
         .card {
-            background: #134E4A;
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 48px;
-            max-width: 480px;
             width: 100%;
-            border-radius: 8px;
+            max-width: 400px;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
         }
 
-        .label {
-            font-family: 'Figtree', sans-serif;
-            font-size: 0.6rem;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            color: rgba(255,255,255,0.3);
-            margin-bottom: 24px;
-            display: block;
+        .wordmark { display: flex; flex-direction: column; gap: 4px; }
+        .wordmark-name {
+            font-size: 18px; font-weight: 400;
+            color: rgba(255,255,255,0.88);
+            letter-spacing: -0.01em; line-height: 1.2;
+        }
+        .wordmark-sub {
+            font-size: 11px; font-weight: 300;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 0.12em; text-transform: uppercase;
         }
 
-        h1 {
-            font-family: 'Figtree', sans-serif;
-            font-size: 1.6rem;
-            font-weight: 700;
-            margin-bottom: 32px;
-            letter-spacing: -0.02em;
-        }
+        .section { display: flex; flex-direction: column; gap: 16px; }
 
-        #login-view { display: flex; flex-direction: column; gap: 20px; }
-        .field-label {
-            font-size: 0.65rem;
-            letter-spacing: 0.2em;
-            text-transform: uppercase;
+        .section-title {
+            font-size: 10px; font-weight: 500;
+            letter-spacing: 0.12em; text-transform: uppercase;
             color: rgba(255,255,255,0.4);
-            display: block;
-            margin-bottom: 8px;
         }
-        input[type="password"] {
+
+        .field-label {
+            font-size: 10px; font-weight: 500;
+            letter-spacing: 0.12em; text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .field-input {
             width: 100%;
             background: transparent;
             border: none;
-            border-bottom: 1px solid rgba(255,255,255,0.2);
-            color: #fff;
-            font-family: 'Noto Sans', sans-serif;
-            font-size: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            border-radius: 0;
+            color: rgba(255,255,255,0.88);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 15px; font-weight: 300;
             padding: 10px 0;
             outline: none;
-            letter-spacing: 0.1em;
+            letter-spacing: 0.02em;
+            transition: border-color 0.2s;
+            -webkit-appearance: none;
         }
-        input[type="password"]:focus { border-color: #6EE7E7; }
+        .field-input:focus { border-color: rgba(255,255,255,0.45); }
+        .field-input::placeholder { color: rgba(255,255,255,0.15); }
 
+        textarea.field-input {
+            resize: none;
+            min-height: 64px;
+            line-height: 1.6;
+        }
+
+        .error {
+            font-size: 12px; font-weight: 300; font-style: italic;
+            color: #f87171; min-height: 16px;
+        }
+
+        /* Glass button */
         .btn {
-            background: #7D2B68;
-            border: none;
-            color: #fff;
-            font-family: 'Figtree', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            padding: 12px 24px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: background 0.15s;
+            position: relative;
             align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 22px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 13px; font-weight: 400;
+            letter-spacing: 0.03em;
+            color: rgba(255,255,255,0.88);
+            overflow: visible;
+            background: linear-gradient(180deg, rgba(255,255,255,0.10) 0%, rgba(255,255,255,0.0) 60%);
+            backdrop-filter: blur(6px) saturate(1.4);
+            -webkit-backdrop-filter: blur(6px) saturate(1.4);
+            box-shadow:
+                inset 0 0.5px 0 rgba(255,255,255,0.65),
+                0 0 0 0.5px rgba(255,255,255,0.16),
+                0 1px 4px rgba(0,0,0,0.18);
+            transition: background 0.15s ease, box-shadow 0.15s ease, transform 0.12s cubic-bezier(0.16,1,0.3,1), color 0.15s ease;
         }
-        .btn:hover { background: #651F55; }
-        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
-
-        .btn-danger {
-            background: rgba(220, 80, 80, 0.15);
-            border: 1px solid rgba(220,80,80,0.4);
-            color: #ff8080;
+        .btn::before {
+            content: '';
+            position: absolute; inset: -1px;
+            border-radius: 13px;
+            background: radial-gradient(ellipse 85% 50% at 50% 115%, rgba(140,40,220,0.9) 0%, rgba(100,20,180,0.45) 45%, transparent 68%);
+            opacity: 0; z-index: -1; filter: blur(6px);
+            transition: opacity 0.06s ease;
         }
-        .btn-danger:hover { background: rgba(220,80,80,0.25); }
+        .btn:hover {
+            color: #fff;
+            background: linear-gradient(180deg, rgba(255,255,255,0.16) 0%, rgba(255,255,255,0.01) 55%);
+            box-shadow: inset 0 0.5px 0 rgba(255,255,255,0.75), 0 0 0 0.5px rgba(255,255,255,0.22), 0 2px 8px rgba(0,0,0,0.22);
+            transform: translateY(-0.5px);
+        }
+        .btn:active { transform: scale(0.97) translateY(0.5px); }
+        .btn:active::before { opacity: 1; }
+        .btn:disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
 
-        .error-msg {
-            font-size: 0.8rem;
-            color: #f87171;
-            min-height: 16px;
+        /* Divider */
+        .divider {
+            border: none;
+            border-top: 1px solid rgba(255,255,255,0.08);
         }
 
-        #dashboard-view { display: none; flex-direction: column; gap: 28px; }
+        /* News items */
+        .news-list { display: flex; flex-direction: column; gap: 24px; }
 
-        .status-box {
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 20px 24px;
-            border-radius: 6px;
+        .news-item {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            position: relative;
+        }
+        .news-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+        .news-item-header {
             display: flex;
             align-items: center;
-            gap: 16px;
+            justify-content: space-between;
+        }
+
+        .delete-btn {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.2);
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+            padding: 4px;
+            transition: color 0.15s;
+            font-family: 'Inter', sans-serif;
+        }
+        .delete-btn:hover { color: #f87171; }
+
+        .add-btn {
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.4);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 13px;
+            font-weight: 300;
+            letter-spacing: 0.03em;
+            padding: 8px 0;
+            cursor: pointer;
+            transition: color 0.15s, border-color 0.15s;
+        }
+        .add-btn:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.35); }
+        .add-btn-icon { font-size: 16px; line-height: 1; }
+
+        /* Status */
+        .status-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 300;
+            color: rgba(255,255,255,0.4);
         }
         .status-dot {
-            width: 8px; height: 8px;
+            width: 6px; height: 6px;
             border-radius: 50%;
             flex-shrink: 0;
+            background: rgba(255,255,255,0.2);
         }
-        .status-dot.active { background: #f0a020; box-shadow: 0 0 8px #f0a020; }
-        .status-dot.live   { background: #40c080; box-shadow: 0 0 8px #40c080; }
+        .status-dot.preview { background: #f0a020; box-shadow: 0 0 6px #f0a020; }
+        .status-dot.live    { background: #40c080; box-shadow: 0 0 6px #40c080; }
 
-        .status-info { flex: 1; }
-        .status-title { font-family: 'Figtree', sans-serif; font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
-        .status-desc { font-size: 0.78rem; color: rgba(255,255,255,0.4); line-height: 1.5; }
-
-        .divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); }
-
-        .project-info { font-size: 0.8rem; color: rgba(255,255,255,0.35); line-height: 1.8; }
-        .project-info strong { color: rgba(255,255,255,0.6); }
-
-        .confirm-overlay {
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(4px);
-            z-index: 100;
-            align-items: center;
-            justify-content: center;
+        /* Save feedback */
+        .save-feedback {
+            font-size: 12px; font-weight: 300; font-style: italic;
+            color: rgba(255,255,255,0.4);
+            min-height: 16px;
         }
-        .confirm-overlay.show { display: flex; }
-        .confirm-box {
-            background: #134E4A;
-            border: 1px solid rgba(255,255,255,0.12);
-            padding: 36px;
-            max-width: 360px;
-            width: 90%;
-            border-radius: 8px;
+        .save-feedback.ok  { color: #6ee7b7; }
+        .save-feedback.err { color: #f87171; }
+
+        .footer {
+            font-size: 11px; font-weight: 300;
+            color: rgba(255,255,255,0.14);
         }
-        .confirm-box h3 { font-family: 'Figtree', sans-serif; font-size: 1.1rem; margin-bottom: 12px; }
-        .confirm-box p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 24px; }
-        .confirm-actions { display: flex; gap: 12px; }
+
+        /* Views */
+        #login-view    { display: flex; flex-direction: column; gap: 48px; }
+        #dash-view     { display: none; flex-direction: column; gap: 48px; }
     </style>
 </head>
 <body>
+<div class="card">
 
-    <div class="card">
-        <span class="label">Felix Rönne Studio — Projektverwaltung</span>
-        <h1 id="card-title">Admin-Zugang</h1>
-
-        <div id="login-view">
-            <div>
-                <label class="field-label" for="admin-pw">Admin-Passwort</label>
-                <input type="password" id="admin-pw" autocomplete="current-password" placeholder="••••••••••">
-            </div>
-            <div class="error-msg" id="login-error" aria-live="polite"></div>
-            <button class="btn" id="login-btn">Anmelden →</button>
-        </div>
-
-        <div id="dashboard-view">
-            <div class="status-box" id="status-box">
-                <div class="status-dot active" id="status-dot"></div>
-                <div class="status-info">
-                    <div class="status-title" id="status-title">Vorschau-Modus aktiv</div>
-                    <div class="status-desc" id="status-desc">Die Website ist passwortgeschützt. Nur eingeladene Personen haben Zugang.</div>
-                </div>
-            </div>
-
-            <button class="btn btn-danger" id="toggle-btn">Website live schalten →</button>
-
-            <hr class="divider">
-
-            <div class="project-info">
-                <div><strong>Projekt</strong> praxiswilster</div>
-                <div><strong>Kunde</strong> Dr. med. Mona Wendrich-Rönne</div>
-                <div><strong>URL</strong> praxiswilster.vercel.app</div>
-            </div>
-        </div>
+    <div class="wordmark">
+        <div class="wordmark-name">Felix Rönne</div>
+        <div class="wordmark-sub">Studio</div>
     </div>
 
-    <div class="confirm-overlay" id="confirm-overlay" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
-        <div class="confirm-box">
-            <h3 id="confirm-title">Website live schalten?</h3>
-            <p>Der Passwortschutz wird entfernt. Die Website ist dann öffentlich zugänglich. Dieser Vorgang löst ein neues Deployment aus (~30 Sekunden).</p>
-            <div class="confirm-actions">
-                <button class="btn btn-danger" id="confirm-yes">Ja, live schalten</button>
-                <button class="btn" id="confirm-no">Abbrechen</button>
-            </div>
+    <!-- LOGIN -->
+    <div id="login-view">
+        <div class="section">
+            <label class="field-label" for="admin-pw">Passwort</label>
+            <input class="field-input" id="admin-pw" type="password" placeholder="••••••••" autocomplete="off">
+            <span class="error" id="login-error"></span>
         </div>
+        <button class="btn" id="login-btn">Anmelden</button>
     </div>
+
+    <!-- DASHBOARD -->
+    <div id="dash-view">
+
+        <!-- Aktuelles -->
+        <div class="section">
+            <span class="section-title">Aktuelles</span>
+            <div class="news-list" id="news-list"></div>
+            <button class="add-btn" id="add-btn">
+                <span class="add-btn-icon">+</span> Eintrag hinzufügen
+            </button>
+        </div>
+
+        <div style="display:flex;flex-direction:column;gap:10px">
+            <button class="btn" id="save-btn">Speichern</button>
+            <span class="save-feedback" id="save-feedback"></span>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Go-Live -->
+        <div class="section">
+            <span class="section-title">Website</span>
+            <div class="status-row">
+                <div class="status-dot preview" id="status-dot"></div>
+                <span id="status-text">Vorschau-Modus — passwortgeschützt</span>
+            </div>
+            <button class="btn" id="golive-btn">Website live schalten</button>
+            <span class="save-feedback" id="golive-feedback"></span>
+        </div>
+
+        <div class="footer">© 2026</div>
+    </div>
+
+</div>
 
 <script>
-    const ADMIN_PASSWORD = 'felixstudio26';
+    let items = [];
+    let adminPw = '';
 
-    const loginView      = document.getElementById('login-view');
-    const dashboardView  = document.getElementById('dashboard-view');
-    const cardTitle      = document.getElementById('card-title');
-    const loginError     = document.getElementById('login-error');
-    const loginBtn       = document.getElementById('login-btn');
-    const toggleBtn      = document.getElementById('toggle-btn');
-    const confirmOverlay = document.getElementById('confirm-overlay');
-    const statusDot      = document.getElementById('status-dot');
-    const statusTitle    = document.getElementById('status-title');
-    const statusDesc     = document.getElementById('status-desc');
+    // ── Login ──────────────────────────────────────────────
+    async function tryLogin() {
+        const pw = document.getElementById('admin-pw').value.trim();
+        if (!pw) return;
 
-    let isLive = false;
+        const res = await fetch('/api/admin-login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ adminPassword: pw }),
+        });
+        const data = await res.json();
 
-    function tryLogin() {
-        const pw = document.getElementById('admin-pw').value;
-        if (pw === ADMIN_PASSWORD) {
-            loginView.style.display = 'none';
-            dashboardView.style.display = 'flex';
-            cardTitle.textContent = 'Projektverwaltung';
+        if (data.ok) {
+            adminPw = pw;
+            await loadContent();
+            document.getElementById('login-view').style.display = 'none';
+            document.getElementById('dash-view').style.display = 'flex';
         } else {
-            loginError.textContent = 'Falsches Passwort.';
+            document.getElementById('login-error').textContent = 'Falsches Passwort.';
             document.getElementById('admin-pw').value = '';
         }
     }
 
-    loginBtn.addEventListener('click', tryLogin);
+    document.getElementById('login-btn').addEventListener('click', tryLogin);
     document.getElementById('admin-pw').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
 
-    toggleBtn.addEventListener('click', () => {
-        if (!isLive) {
-            confirmOverlay.classList.add('show');
-            document.getElementById('confirm-yes').focus();
+    // ── Load content ───────────────────────────────────────
+    async function loadContent() {
+        try {
+            const res = await fetch('/content.json?v=' + Date.now());
+            const data = await res.json();
+            items = data.aktuelles || [];
+            renderList();
+        } catch(e) { items = []; renderList(); }
+    }
+
+    // ── Render ─────────────────────────────────────────────
+    function renderList() {
+        const list = document.getElementById('news-list');
+        list.innerHTML = '';
+        if (items.length === 0) {
+            list.innerHTML = '<span style="font-size:13px;font-weight:300;color:rgba(255,255,255,0.25);font-style:italic">Noch keine Einträge.</span>';
+            return;
         }
+        items.forEach((item, i) => {
+            const el = document.createElement('div');
+            el.className = 'news-item';
+            el.innerHTML = `
+                <div class="news-item-header">
+                    <span class="field-label">Eintrag ${i + 1}</span>
+                    <button class="delete-btn" data-i="${i}" title="Löschen">×</button>
+                </div>
+                <input class="field-input" data-i="${i}" data-field="title"
+                       value="${escHtml(item.title || '')}" placeholder="Titel">
+                <textarea class="field-input" data-i="${i}" data-field="text"
+                          placeholder="Text (optional)">${escHtml(item.text || '')}</textarea>
+            `;
+            list.appendChild(el);
+        });
+
+        list.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                items.splice(parseInt(btn.dataset.i), 1);
+                renderList();
+            });
+        });
+        list.querySelectorAll('[data-field]').forEach(el => {
+            el.addEventListener('input', () => {
+                items[parseInt(el.dataset.i)][el.dataset.field] = el.value;
+            });
+        });
+    }
+
+    // ── Add ────────────────────────────────────────────────
+    document.getElementById('add-btn').addEventListener('click', () => {
+        items.push({ title: '', text: '' });
+        renderList();
+        const inputs = document.querySelectorAll('#news-list .field-input');
+        if (inputs.length) inputs[inputs.length - 2]?.focus();
     });
 
-    document.getElementById('confirm-no').addEventListener('click', () => {
-        confirmOverlay.classList.remove('show');
+    // ── Save ───────────────────────────────────────────────
+    document.getElementById('save-btn').addEventListener('click', async () => {
+        const btn = document.getElementById('save-btn');
+        const fb  = document.getElementById('save-feedback');
+        btn.disabled = true;
+        fb.textContent = 'Wird gespeichert …';
+        fb.className = 'save-feedback';
+
+        // Sync textarea values (not firing input events)
+        document.querySelectorAll('#news-list [data-field]').forEach(el => {
+            items[parseInt(el.dataset.i)][el.dataset.field] = el.value;
+        });
+
+        try {
+            const res = await fetch('/api/save-content', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ adminPassword: adminPw, aktuelles: items }),
+            });
+            const data = await res.json();
+            if (data.ok) {
+                fb.textContent = 'Gespeichert. Website wird in ~20s aktualisiert.';
+                fb.className = 'save-feedback ok';
+            } else {
+                fb.textContent = 'Fehler: ' + (data.error || 'Unbekannt');
+                fb.className = 'save-feedback err';
+            }
+        } catch(e) {
+            fb.textContent = 'Verbindungsfehler.';
+            fb.className = 'save-feedback err';
+        }
+        btn.disabled = false;
     });
 
-    document.getElementById('confirm-yes').addEventListener('click', async () => {
-        confirmOverlay.classList.remove('show');
-        toggleBtn.disabled = true;
-        toggleBtn.textContent = 'Deployment läuft …';
+    // ── Go Live ────────────────────────────────────────────
+    document.getElementById('golive-btn').addEventListener('click', async () => {
+        if (!confirm('Passwortschutz entfernen und Website live schalten?')) return;
+        const btn = document.getElementById('golive-btn');
+        const fb  = document.getElementById('golive-feedback');
+        btn.disabled = true;
+        fb.textContent = 'Deployment läuft …';
+        fb.className = 'save-feedback';
 
         try {
             const res = await fetch('/api/admin', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ action: 'go-live', adminPassword: ADMIN_PASSWORD })
+                body: JSON.stringify({ action: 'go-live', adminPassword: adminPw }),
             });
             const data = await res.json();
-
             if (data.ok) {
-                isLive = true;
-                statusDot.className = 'status-dot live';
-                statusTitle.textContent = '● Live — öffentlich zugänglich';
-                statusDesc.textContent = 'Der Passwortschutz wurde entfernt. Die Website ist jetzt für alle erreichbar.';
-                toggleBtn.style.display = 'none';
+                document.getElementById('status-dot').className = 'status-dot live';
+                document.getElementById('status-text').textContent = 'Live — öffentlich zugänglich';
+                btn.style.display = 'none';
+                fb.textContent = 'Website ist jetzt live.';
+                fb.className = 'save-feedback ok';
             } else {
-                toggleBtn.disabled = false;
-                toggleBtn.textContent = 'Fehler — erneut versuchen';
+                fb.textContent = 'Fehler beim Deployment.';
+                fb.className = 'save-feedback err';
+                btn.disabled = false;
             }
-        } catch (err) {
-            toggleBtn.disabled = false;
-            toggleBtn.textContent = 'Fehler — erneut versuchen';
+        } catch(e) {
+            fb.textContent = 'Verbindungsfehler.';
+            fb.className = 'save-feedback err';
+            btn.disabled = false;
         }
     });
+
+    function escHtml(s) {
+        return s.replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+    }
 </script>
 </body>
 </html>
