@@ -370,29 +370,55 @@
     .aktuelles[hidden] { display: none; }
     .aktuelles__grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: var(--s3);
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: var(--s4);
       margin-top: var(--s4);
     }
     .aktuelles__card {
       background: #fff;
-      border: 1px solid rgba(0,0,0,0.07);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--primary);
       border-radius: 12px;
-      padding: var(--s3) var(--s4);
+      padding: var(--s4);
       display: flex;
       flex-direction: column;
-      gap: 8px;
+      gap: 10px;
+      box-shadow: 0 2px 12px rgba(125,43,104,.07);
+      transition: transform 200ms var(--ease-out), box-shadow 200ms var(--ease-out);
+    }
+    .aktuelles__card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(125,43,104,.12);
+    }
+    .aktuelles__card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--primary);
+    }
+    .aktuelles__card-badge::before {
+      content: '';
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--primary);
+      flex-shrink: 0;
     }
     .aktuelles__card-title {
-      font-size: 15px;
-      font-weight: 600;
-      color: var(--primary-dark);
-      line-height: 1.4;
+      font-family: var(--ff-head);
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.35;
     }
     .aktuelles__card-text {
       font-size: 14px;
-      font-weight: 300;
-      color: #444;
+      font-weight: 400;
+      color: var(--ink-mid);
       line-height: 1.7;
     }
 
@@ -1402,6 +1428,7 @@
           const card = document.createElement('div');
           card.className = 'aktuelles__card';
           card.innerHTML = `
+            <div class="aktuelles__card-badge">Aktuell</div>
             <div class="aktuelles__card-title">${item.title || ''}</div>
             ${item.text ? `<div class="aktuelles__card-text">${item.text}</div>` : ''}
           `;
