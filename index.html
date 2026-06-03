@@ -8,6 +8,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Noto+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 
   <style>
     /* ─── TOKENS ─────────────────────────────── */
@@ -753,6 +755,7 @@
     .anfahrt__info-row-text strong { color: #fff; font-weight: 500; }
     .anfahrt__map { height: 420px; }
     .anfahrt__map iframe { width: 100%; height: 100%; border: 0; display: block; }
+    #praxis-map { width: 100%; height: 100%; }
 
     /* ─── KONTAKT CTA ────────────────────────── */
     /* bg: --primary-dark (#651F55) → white 10.8:1; body text at .90 → passt ✓ */
@@ -1318,11 +1321,7 @@
           </a>
         </div>
         <div class="anfahrt__map">
-          <iframe
-            title="Lage der Frauenarztpraxis Dr. Wendrich-Rönne in Wilster"
-            loading="lazy"
-            src="https://www.openstreetmap.org/export/embed.html?bbox=9.373%2C53.9206%2C9.380%2C53.9232&layer=mapnik&marker=53.9219%2C9.3765"
-          ></iframe>
+          <div id="praxis-map"></div>
         </div>
       </div>
     </section>
@@ -1435,6 +1434,36 @@
         section.removeAttribute('hidden');
       })
       .catch(() => {});
+  </script>
+  <script>
+    // Leaflet map – CartoDB Positron (keine falschen POI-Einträge)
+    const map = L.map('praxis-map', { scrollWheelZoom: false, zoomControl: true })
+      .setView([53.9219, 9.3765], 17);
+
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/">CARTO</a>',
+      subdomains: 'abcd',
+      maxZoom: 20
+    }).addTo(map);
+
+    const icon = L.divIcon({
+      className: '',
+      html: `<div style="
+        width:14px;height:14px;
+        background:var(--primary);
+        border:3px solid #fff;
+        border-radius:50%;
+        box-shadow:0 2px 6px rgba(0,0,0,.35);
+      "></div>`,
+      iconSize: [14, 14],
+      iconAnchor: [7, 7],
+      popupAnchor: [0, -12]
+    });
+
+    L.marker([53.9219, 9.3765], { icon })
+      .addTo(map)
+      .bindPopup('<strong>Frauenarztpraxis Dr. Wendrich-Rönne</strong><br>Rathausstraße 2, 25554 Wilster')
+      .openPopup();
   </script>
 </body>
 </html>
