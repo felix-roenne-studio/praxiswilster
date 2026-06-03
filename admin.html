@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin — Praxiswilster</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600;700&family=Noto+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
+
+        body {
+            font-family: 'Noto Sans', sans-serif;
+            background: #0C3D3A;
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 24px;
+        }
+
+        .card {
+            background: #134E4A;
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 48px;
+            max-width: 480px;
+            width: 100%;
+            border-radius: 8px;
+        }
+
+        .label {
+            font-family: 'Figtree', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.3);
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        h1 {
+            font-family: 'Figtree', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 32px;
+            letter-spacing: -0.02em;
+        }
+
+        #login-view { display: flex; flex-direction: column; gap: 20px; }
+        .field-label {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            display: block;
+            margin-bottom: 8px;
+        }
+        input[type="password"] {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+            font-family: 'Noto Sans', sans-serif;
+            font-size: 1rem;
+            padding: 10px 0;
+            outline: none;
+            letter-spacing: 0.1em;
+        }
+        input[type="password"]:focus { border-color: #6EE7E7; }
+
+        .btn {
+            background: #7D2B68;
+            border: none;
+            color: #fff;
+            font-family: 'Figtree', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.15s;
+            align-self: flex-start;
+        }
+        .btn:hover { background: #651F55; }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .btn-danger {
+            background: rgba(220, 80, 80, 0.15);
+            border: 1px solid rgba(220,80,80,0.4);
+            color: #ff8080;
+        }
+        .btn-danger:hover { background: rgba(220,80,80,0.25); }
+
+        .error-msg {
+            font-size: 0.8rem;
+            color: #f87171;
+            min-height: 16px;
+        }
+
+        #dashboard-view { display: none; flex-direction: column; gap: 28px; }
+
+        .status-box {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 20px 24px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+        .status-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .status-dot.active { background: #f0a020; box-shadow: 0 0 8px #f0a020; }
+        .status-dot.live   { background: #40c080; box-shadow: 0 0 8px #40c080; }
+
+        .status-info { flex: 1; }
+        .status-title { font-family: 'Figtree', sans-serif; font-weight: 600; font-size: 0.95rem; margin-bottom: 4px; }
+        .status-desc { font-size: 0.78rem; color: rgba(255,255,255,0.4); line-height: 1.5; }
+
+        .divider { border: none; border-top: 1px solid rgba(255,255,255,0.08); }
+
+        .project-info { font-size: 0.8rem; color: rgba(255,255,255,0.35); line-height: 1.8; }
+        .project-info strong { color: rgba(255,255,255,0.6); }
+
+        .confirm-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+        }
+        .confirm-overlay.show { display: flex; }
+        .confirm-box {
+            background: #134E4A;
+            border: 1px solid rgba(255,255,255,0.12);
+            padding: 36px;
+            max-width: 360px;
+            width: 90%;
+            border-radius: 8px;
+        }
+        .confirm-box h3 { font-family: 'Figtree', sans-serif; font-size: 1.1rem; margin-bottom: 12px; }
+        .confirm-box p { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.7; margin-bottom: 24px; }
+        .confirm-actions { display: flex; gap: 12px; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <span class="label">Felix Rönne Studio — Projektverwaltung</span>
+        <h1 id="card-title">Admin-Zugang</h1>
+
+        <div id="login-view">
+            <div>
+                <label class="field-label" for="admin-pw">Admin-Passwort</label>
+                <input type="password" id="admin-pw" autocomplete="current-password" placeholder="••••••••••">
+            </div>
+            <div class="error-msg" id="login-error" aria-live="polite"></div>
+            <button class="btn" id="login-btn">Anmelden →</button>
+        </div>
+
+        <div id="dashboard-view">
+            <div class="status-box" id="status-box">
+                <div class="status-dot active" id="status-dot"></div>
+                <div class="status-info">
+                    <div class="status-title" id="status-title">Vorschau-Modus aktiv</div>
+                    <div class="status-desc" id="status-desc">Die Website ist passwortgeschützt. Nur eingeladene Personen haben Zugang.</div>
+                </div>
+            </div>
+
+            <button class="btn btn-danger" id="toggle-btn">Website live schalten →</button>
+
+            <hr class="divider">
+
+            <div class="project-info">
+                <div><strong>Projekt</strong> praxiswilster</div>
+                <div><strong>Kunde</strong> Dr. med. Mona Wendrich-Rönne</div>
+                <div><strong>URL</strong> praxiswilster.vercel.app</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="confirm-overlay" id="confirm-overlay" role="dialog" aria-modal="true" aria-labelledby="confirm-title">
+        <div class="confirm-box">
+            <h3 id="confirm-title">Website live schalten?</h3>
+            <p>Der Passwortschutz wird entfernt. Die Website ist dann öffentlich zugänglich. Dieser Vorgang löst ein neues Deployment aus (~30 Sekunden).</p>
+            <div class="confirm-actions">
+                <button class="btn btn-danger" id="confirm-yes">Ja, live schalten</button>
+                <button class="btn" id="confirm-no">Abbrechen</button>
+            </div>
+        </div>
+    </div>
+
+<script>
+    const ADMIN_PASSWORD = 'felixstudio26';
+
+    const loginView      = document.getElementById('login-view');
+    const dashboardView  = document.getElementById('dashboard-view');
+    const cardTitle      = document.getElementById('card-title');
+    const loginError     = document.getElementById('login-error');
+    const loginBtn       = document.getElementById('login-btn');
+    const toggleBtn      = document.getElementById('toggle-btn');
+    const confirmOverlay = document.getElementById('confirm-overlay');
+    const statusDot      = document.getElementById('status-dot');
+    const statusTitle    = document.getElementById('status-title');
+    const statusDesc     = document.getElementById('status-desc');
+
+    let isLive = false;
+
+    function tryLogin() {
+        const pw = document.getElementById('admin-pw').value;
+        if (pw === ADMIN_PASSWORD) {
+            loginView.style.display = 'none';
+            dashboardView.style.display = 'flex';
+            cardTitle.textContent = 'Projektverwaltung';
+        } else {
+            loginError.textContent = 'Falsches Passwort.';
+            document.getElementById('admin-pw').value = '';
+        }
+    }
+
+    loginBtn.addEventListener('click', tryLogin);
+    document.getElementById('admin-pw').addEventListener('keydown', e => { if (e.key === 'Enter') tryLogin(); });
+
+    toggleBtn.addEventListener('click', () => {
+        if (!isLive) {
+            confirmOverlay.classList.add('show');
+            document.getElementById('confirm-yes').focus();
+        }
+    });
+
+    document.getElementById('confirm-no').addEventListener('click', () => {
+        confirmOverlay.classList.remove('show');
+    });
+
+    document.getElementById('confirm-yes').addEventListener('click', async () => {
+        confirmOverlay.classList.remove('show');
+        toggleBtn.disabled = true;
+        toggleBtn.textContent = 'Deployment läuft …';
+
+        try {
+            const res = await fetch('/api/admin', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'go-live', adminPassword: ADMIN_PASSWORD })
+            });
+            const data = await res.json();
+
+            if (data.ok) {
+                isLive = true;
+                statusDot.className = 'status-dot live';
+                statusTitle.textContent = '● Live — öffentlich zugänglich';
+                statusDesc.textContent = 'Der Passwortschutz wurde entfernt. Die Website ist jetzt für alle erreichbar.';
+                toggleBtn.style.display = 'none';
+            } else {
+                toggleBtn.disabled = false;
+                toggleBtn.textContent = 'Fehler — erneut versuchen';
+            }
+        } catch (err) {
+            toggleBtn.disabled = false;
+            toggleBtn.textContent = 'Fehler — erneut versuchen';
+        }
+    });
+</script>
+</body>
+</html>

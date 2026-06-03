@@ -1,0 +1,134 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-31T00:00:00Z",
+  "title": "Design System: Frauenarztpraxis Dr. Wendrich-Rönne",
+  "extensions": {
+    "colorMeta": {
+      "praxis-blau":      { "role": "primary",   "displayName": "Praxis-Blau",      "canonical": "oklch(0.60 0.13 210)", "tonalRamp": ["#011520","#042333","#073448","#0A4A63","#0C6282","#0E789E","#0891B2","#3DB4D0","#8DD6E8","#D5F2FA"] },
+      "praxis-blau-deep": { "role": "primary",   "displayName": "Praxis-Blau Deep", "canonical": "oklch(0.54 0.13 210)", "tonalRamp": ["#011520","#042333","#063245","#094561","#0C5D7E","#0E7490","#0F87A6","#3DB4D0","#8DD6E8","#D5F2FA"] },
+      "kieferngruen":     { "role": "neutral",   "displayName": "Kieferngrün",      "canonical": "oklch(0.34 0.07 180)", "tonalRamp": ["#001610","#042822","#082F28","#0D3E38","#134E4A","#196B64","#238C82","#3AADA3","#7CCCC6","#C8EDEB"] },
+      "gruen-mid":        { "role": "neutral",   "displayName": "Grün-Mittel",      "canonical": "oklch(0.39 0.07 180)", "tonalRamp": ["#001610","#042822","#0D3E38","#134E4A","#1F5F5B","#2B7872","#3A9991","#68B9B4","#A5D8D5","#DCEEED"] },
+      "gruen-light":      { "role": "neutral",   "displayName": "Grün-Hell",        "canonical": "oklch(0.57 0.07 180)", "tonalRamp": ["#0D3E38","#196B64","#238C82","#2E9F95","#3AADA3","#4A8C87","#6AB3AE","#93CCCA","#C2E5E4","#EBF5F4"] },
+      "teal-hell":        { "role": "neutral",   "displayName": "Teal-Hell",        "canonical": "oklch(0.98 0.015 180)", "tonalRamp": ["#196B64","#3AADA3","#68B9B4","#93CCCA","#B2DDD9","#D5EEEC","#E6F7F5","#EEF9F8","#F5FCFB","#F0FDFA"] },
+      "teal-section":     { "role": "neutral",   "displayName": "Teal-Sektion",     "canonical": "oklch(0.96 0.02 180)",  "tonalRamp": ["#196B64","#3AADA3","#68B9B4","#93CCCA","#B2DDD9","#C8E9E7","#D5EEEC","#E0F3F1","#E6F7F5","#EEF9F8"] },
+      "grenzlinie":       { "role": "neutral",   "displayName": "Grenzlinie",       "canonical": "oklch(0.87 0.04 180)", "tonalRamp": ["#3AADA3","#68B9B4","#93CCCA","#ADDDD9","#B2DDD9","#BFDFDC","#CCE9E7","#D5EEEC","#E6F7F5","#EEF9F8"] },
+      "weiss":            { "role": "neutral",   "displayName": "Weiss",            "canonical": "oklch(1.0 0 0)",        "tonalRamp": ["#E0F3F1","#E6F7F5","#EEF9F8","#F0FDFA","#F5FCFB","#F8FFFE","#FAFFFE","#FCFFFF","#FEFFFF","#FFFFFF"] },
+      "gruener-akzent":   { "role": "secondary", "displayName": "Grüner Akzent",    "canonical": "oklch(0.52 0.14 145)", "tonalRamp": ["#052E0F","#084A1A","#0A6122","#0D782B","#0E8F33","#16A34A","#22C55E","#4ADE80","#86EFAC","#DCFCE7"] }
+    },
+    "typographyMeta": {
+      "display":  { "displayName": "Display",  "purpose": "Hero heading only. One per page." },
+      "headline": { "displayName": "Headline", "purpose": "Section h2 elements." },
+      "title":    { "displayName": "Title",    "purpose": "Card and block headings." },
+      "body":     { "displayName": "Body",     "purpose": "All prose. Max 65–75ch line length." },
+      "label":    { "displayName": "Label",    "purpose": "Short section identifiers (≤4 words). Uppercase." }
+    },
+    "shadows": [
+      { "name": "nav-ambient", "value": "0 2px 8px rgba(8, 145, 178, 0.08)", "purpose": "Sticky navigation only. Communicates scroll-layer separation." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.4, 0, 0.2, 1)", "purpose": "Default easing for state transitions (buttons, nav hover)." },
+      { "name": "duration-fast", "value": "200ms", "purpose": "All interactive state changes: button hover, nav link hover." },
+      { "name": "reveal-enter",  "value": "opacity 600ms cubic-bezier(0.4,0,0.2,1), transform 600ms cubic-bezier(0.4,0,0.2,1)", "purpose": "Scroll-reveal for content sections. Requires visible default fallback (no content gating)." }
+    ],
+    "breakpoints": [
+      { "name": "mobile",  "value": "500px",  "note": "Single-column service grid." },
+      { "name": "tablet",  "value": "768px",  "note": "Single-column hero, about, hours layouts." },
+      { "name": "desktop", "value": "900px",  "note": "Nav collapses hamburger below this." },
+      { "name": "wide",    "value": "1100px", "note": "Max container width." }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Default action button. Termin vereinbaren, Route berechnen, E-Mail schreiben.",
+      "html": "<button class=\"ds-btn-primary\"><svg class=\"ds-btn-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.22A2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.07 6.07l1.12-1.12a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z\"/></svg>Termin vereinbaren</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 8px; background: #0891B2; color: #ffffff; font-family: 'Noto Sans', system-ui, sans-serif; font-size: 15px; font-weight: 600; padding: 13px 28px; border-radius: 6px; min-height: 48px; border: none; cursor: pointer; transition: background 200ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-primary:hover { background: #0E7490; } .ds-btn-primary:focus-visible { outline: 3px solid #0891B2; outline-offset: 3px; border-radius: 6px; } .ds-btn-icon { width: 16px; height: 16px; flex-shrink: 0; }"
+    },
+    {
+      "name": "White Button",
+      "kind": "button",
+      "refersTo": "button-white",
+      "description": "Used on Praxis-Blau backgrounds (contact CTA section). Never on white or teal-hell.",
+      "html": "<button class=\"ds-btn-white\"><svg class=\"ds-btn-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z\"/><polyline points=\"22,6 12,13 2,6\"/></svg>E-Mail schreiben</button>",
+      "css": ".ds-btn-white { display: inline-flex; align-items: center; gap: 8px; background: #ffffff; color: #0E7490; font-family: 'Noto Sans', system-ui, sans-serif; font-size: 15px; font-weight: 600; padding: 13px 28px; border-radius: 6px; min-height: 48px; border: none; cursor: pointer; transition: background 200ms cubic-bezier(0.4,0,0.2,1); } .ds-btn-white:hover { background: #e0f2fe; } .ds-btn-white:focus-visible { outline: 3px solid #ffffff; outline-offset: 3px; border-radius: 6px; } .ds-btn-icon { width: 16px; height: 16px; flex-shrink: 0; }"
+    },
+    {
+      "name": "Nav CTA",
+      "kind": "button",
+      "refersTo": "nav-cta",
+      "description": "Sticky navigation call-to-action. Always contains the phone number.",
+      "html": "<a class=\"ds-nav-cta\" href=\"tel:048239070\">Termin: 04823-9070</a>",
+      "css": ".ds-nav-cta { display: inline-flex; align-items: center; background: #0891B2; color: #ffffff; font-family: 'Noto Sans', system-ui, sans-serif; font-size: 14px; font-weight: 600; padding: 10px 22px; border-radius: 6px; min-height: 44px; text-decoration: none; transition: background 200ms cubic-bezier(0.4,0,0.2,1); } .ds-nav-cta:hover { background: #0E7490; } .ds-nav-cta:focus-visible { outline: 3px solid #0891B2; outline-offset: 3px; }"
+    },
+    {
+      "name": "Info Block",
+      "kind": "card",
+      "description": "Contained information panel. Hours aside, contact block, profile card.",
+      "html": "<div class=\"ds-info-block\"><div class=\"ds-info-block__title\"><svg width=\"18\" height=\"18\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#0891B2\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07\"/></svg>Kontakt</div><div class=\"ds-info-block__body\">Rathausstr. 2, 25554 Wilster</div></div>",
+      "css": ".ds-info-block { background: #F0FDFA; border: 1px solid #B2DDD9; border-radius: 8px; padding: 24px; } .ds-info-block__title { font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 700; color: #134E4A; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; } .ds-info-block__body { font-family: 'Noto Sans', system-ui, sans-serif; font-size: 14px; color: #1F5F5B; line-height: 1.7; }"
+    },
+    {
+      "name": "Hours Table",
+      "kind": "custom",
+      "description": "Sprechzeiten table. Semantic <table> with Kieferngrün thead, Grenzlinie row borders, zebra Teal-Hell rows.",
+      "html": "<div class=\"ds-hours-wrap\"><table class=\"ds-hours\"><thead><tr><th scope=\"col\">Tag</th><th scope=\"col\">Öffnungszeit</th></tr></thead><tbody><tr><td>Montag</td><td>8:00 – 12:30 Uhr</td></tr><tr><td>Dienstag</td><td>8:00 – 12:30 Uhr</td></tr></tbody></table></div>",
+      "css": ".ds-hours-wrap { border: 1px solid #B2DDD9; border-radius: 8px; overflow: hidden; } .ds-hours { width: 100%; border-collapse: collapse; } .ds-hours thead th { background: #134E4A; color: rgba(255,255,255,0.7); font-family: 'Noto Sans', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 12px 24px; text-align: left; } .ds-hours tbody tr { border-bottom: 1px solid #B2DDD9; } .ds-hours tbody tr:last-child { border-bottom: none; } .ds-hours tbody tr:nth-child(even) { background: #F0FDFA; } .ds-hours td { padding: 13px 24px; font-family: 'Noto Sans', system-ui, sans-serif; font-size: 14px; color: #134E4A; } .ds-hours td:last-child { color: #1F5F5B; text-align: right; }"
+    },
+    {
+      "name": "Service Item",
+      "kind": "card",
+      "description": "Leistungen grid item. Icon + title + description. Part of a 2px-gap borderline grid.",
+      "html": "<div class=\"ds-leistung\"><div class=\"ds-leistung__icon\"><svg width=\"20\" height=\"20\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"#0891B2\" stroke-width=\"1.8\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M9 12l2 2 4-4\"/><circle cx=\"12\" cy=\"12\" r=\"9\"/></svg></div><div class=\"ds-leistung__title\">Krebsvorsorge</div><p class=\"ds-leistung__text\">Zervix-Zytologie, HPV-Test, Tastuntersuchung der Brust.</p></div>",
+      "css": ".ds-leistung { background: #ffffff; padding: 32px 24px; display: flex; flex-direction: column; gap: 8px; } .ds-leistung__icon { width: 40px; height: 40px; background: #F0FDFA; border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 4px; flex-shrink: 0; } .ds-leistung__title { font-family: 'Figtree', system-ui, sans-serif; font-size: 15px; font-weight: 600; color: #134E4A; line-height: 1.3; } .ds-leistung__text { font-family: 'Noto Sans', system-ui, sans-serif; font-size: 13px; color: #4A8C87; line-height: 1.65; margin: 0; }"
+    },
+    {
+      "name": "Announcement Bar",
+      "kind": "custom",
+      "description": "Top-of-page bar with hours and phone number. Kieferngrün background, always visible.",
+      "html": "<div class=\"ds-bar\">Terminvereinbarung ausschließlich telefonisch: <strong><a href=\"tel:048239070\" class=\"ds-bar__link\">04823-9070</a></strong> &nbsp;·&nbsp; Mo–Do 8:00–12:30 Uhr</div>",
+      "css": ".ds-bar { background: #134E4A; color: rgba(255,255,255,0.85); font-family: 'Noto Sans', system-ui, sans-serif; font-size: 13px; text-align: center; padding: 10px 24px; } .ds-bar strong { color: #ffffff; font-weight: 600; } .ds-bar__link { color: #6EE7E7; text-decoration: underline; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "Gute Medizin, kein Brimborium",
+    "overview": "The system is built around one principle: information is the product. Patients arrive at this site to find a phone number, confirm opening hours, or verify that the practice covers a specific service. They find it without friction. Every design decision is measured against that standard — if an element does not help a visitor reach their goal faster, it is removed.\n\nThe palette is medical teal in a restrained strategy: Praxis-Blau for actions and affordances, Kieferngrün for structural dark surfaces, near-white teal backgrounds for reading. Color is functional, not atmospheric. There are no gradients, no translucent layers, no blurred hero backgrounds. Warmth in the brand comes from directness of copy and precision of information, not from visual softness.\n\nThe system explicitly rejects the wellness-aesthetic: soft gradients, emotive taglines, spa-retreat palettes, and blurred overlapping shapes. It equally rejects the generic practice template: DocCheck-blue, stock-photo doctor grids, icon rows with placeholder medical symbols.",
+    "keyCharacteristics": [
+      "Near-flat surfaces — depth from background color contrast, not shadows",
+      "Type-driven hierarchy: Figtree at high weight contrast, Noto Sans for body",
+      "Phone number is always the loudest element on any viewport",
+      "8pt spacing grid throughout",
+      "Structural dark sections use Kieferngrün, not black",
+      "WCAG AA contrast as a floor throughout"
+    ],
+    "rules": [
+      { "name": "The Brimborium Rule",       "body": "No color for decoration. If removing a color does not reduce legibility or remove an affordance, remove the color.", "section": "colors" },
+      { "name": "The Telefonnummer Rule",     "body": "The phone number (04823-9070) is always the largest or most visually prominent number on any viewport. No heading, no metric, no decorative number may outrank it.", "section": "colors" },
+      { "name": "The Italic-Free Rule",       "body": "No italic type in the UI. Italic signals emotion; this system signals structure.", "section": "typography" },
+      { "name": "The Weight Ceiling Rule",    "body": "Figtree 700 is the maximum weight used. No 800 or 900 weights — they tip from confident to alarmed.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule",   "body": "Surfaces are flat at rest. The nav shadow is the only persistent shadow in the system. If a new component needs elevation, the answer is a background color change, not box-shadow.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do use Praxis-Blau (#0891B2) for every interactive affordance — links, buttons, focus rings, icon fill.",
+      "Do verify WCAG AA (4.5:1) for every body text color. Grün-Mittel (#1F5F5B) for secondary copy on Teal-Hell; Grün-Hell (#4A8C87) only at 18px+ or bold 14px+.",
+      "Do make the phone number (04823-9070) the dominant numeric element on any viewport.",
+      "Do use the 8px spacing grid without exception.",
+      "Do keep tables for tabular data. Opening hours are tabular.",
+      "Do write button labels as verb + object: Termin vereinbaren, Route berechnen.",
+      "Do use text-wrap: balance on h1–h2.",
+      "Do respect prefers-reduced-motion: reveal transitions must fall back to instant visibility."
+    ],
+    "donts": [
+      "Don't use the wellness-aesthetic: soft gradients, blurred overlay shapes, pastel color washes, or emotive taglines.",
+      "Don't use the generic-practice template: DocCheck-style blue-and-white, stock-photo doctor rows, placeholder medical icon grids.",
+      "Don't add shadows to cards or service items. The Flat-By-Default Rule is not negotiable.",
+      "Don't use italic type anywhere in the UI.",
+      "Don't use Grün-Hell (#4A8C87) for body-size text below 18px regular weight.",
+      "Don't use border-left or border-right greater than 1px as a colored accent stripe.",
+      "Don't add section eyebrows above every heading — it's AI grammar, not a brand system.",
+      "Don't place the phone number below the fold on any viewport.",
+      "Don't add imagery as decoration. No CSS gradient rectangles where a photo should go."
+    ]
+  }
+}

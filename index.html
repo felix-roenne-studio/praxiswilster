@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frauenarztpraxis Dr. med. Mona Wendrich-Rönne – Wilster</title>
+  <meta name="description" content="Fachärztin für Gynäkologie und Geburtshilfe in Wilster. Krebsvorsorge, Schwangerschaft, Verhütung, Wechseljahre. Terminvereinbarung: 04823-9070." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@300;400;500;600;700&family=Noto+Sans:wght@300;400;500;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── TOKENS ─────────────────────────────── */
+    :root {
+      /* Medical teal palette – Accessible & Ethical (WCAG AA/AAA) */
+      --bg:           #F0FDFA;
+      --bg-section:   #E6F7F5;
+      --bg-dark:      #134E4A;
+      --white:        #ffffff;
+      --ink:          #134E4A;
+      --ink-mid:      #1F5F5B;
+      --ink-light:    #4A8C87;
+      --border:       #B2DDD9;
+      --primary:      #7D2B68;   /* Lila aus Logo – Buttons, Links, Nav */
+      --primary-dark: #651F55;   /* Hover / aktive Zustände */
+      --brand-orange: #E8911C;   /* Orange aus Logo – Icons, Akzente */
+      --accent:       #16A34A;
+      --bar-bg:       #134E4A;
+
+      --ff-head: 'Figtree', system-ui, sans-serif;
+      --ff-body: 'Noto Sans', system-ui, sans-serif;
+
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* expo-out */
+      --ease:     cubic-bezier(0.16, 1, 0.3, 1); /* alias */
+      --t:        200ms;
+      --t-fast:   120ms;
+
+      /* Spacing scale (8pt system) */
+      --s1: 8px;   --s2: 16px; --s3: 24px;
+      --s4: 32px;  --s5: 48px; --s6: 64px;
+      --s7: 96px;
+
+      /* Dark-surface text roles — contrast-verified against --bg-dark (#134E4A) */
+      --on-dark-hi:    rgba(255,255,255,.85); /* bar, brand text     8.2:1 */
+      --on-dark-body:  rgba(255,255,255,.70); /* secondary body      6.9:1 */
+      --on-dark-mid:   rgba(255,255,255,.60); /* intro / subheading  6.0:1 */
+      --on-dark-muted: rgba(255,255,255,.45); /* labels, card title  4.8:1 */
+      --on-dark-rule:  rgba(255,255,255,.08); /* dividers            decorative */
+    }
+
+    /* ─── RESET ──────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--ff-body);
+      font-size: 16px;
+      line-height: 1.6;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ─── ACCESSIBILITY ──────────────────────── */
+    .skip-link {
+      position: absolute; top: -100px; left: var(--s2);
+      background: var(--primary); color: #fff;
+      padding: 8px 16px; font-size: 14px; font-weight: 500;
+      border-radius: 4px; z-index: 300;
+      transition: top var(--t);
+    }
+    .skip-link:focus { top: var(--s2); }
+
+    *:focus-visible {
+      outline: 3px solid var(--primary);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    /* ─── LAYOUT ─────────────────────────────── */
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 var(--s4);
+    }
+    @media (max-width: 768px) { .container { padding: 0 var(--s2); } }
+
+    /* ─── ANNOUNCEMENT BAR ───────────────────── */
+    .bar {
+      background: var(--bar-bg);
+      color: var(--on-dark-hi);
+      font-family: var(--ff-body);
+      font-size: 13px;
+      font-weight: 400;
+      text-align: center;
+      padding: 10px var(--s3);
+      letter-spacing: .01em;
+    }
+    .bar strong { color: #fff; font-weight: 600; }
+    .bar a { color: #6EE7E7; text-decoration: underline; }
+
+    /* ─── NAVBAR ─────────────────────────────── */
+    .nav {
+      position: sticky; top: 0; z-index: 200;
+      background: var(--white);
+      border-bottom: 2px solid var(--primary);
+      box-shadow: 0 2px 8px rgba(125,43,104,.08);
+    }
+    .nav__inner {
+      display: flex; align-items: center;
+      height: 72px; gap: 0;
+    }
+    .nav__logo {
+      flex: 0 0 auto;
+      display: flex; flex-direction: row;
+      align-items: center; gap: var(--s2);
+      line-height: 1.2;
+      margin-right: auto;
+    }
+    .nav__logo-img {
+      width: 38px; height: 38px;
+      flex-shrink: 0;
+    }
+    .nav__logo-text {
+      display: flex; flex-direction: column;
+    }
+    .nav__logo-name {
+      font-family: var(--ff-head);
+      font-size: 18px; font-weight: 700;
+      color: var(--ink);
+      letter-spacing: -.01em;
+    }
+    .nav__logo-sub {
+      font-family: var(--ff-body);
+      font-size: 11px; font-weight: 400;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-mid);
+      margin-top: 2px;
+    }
+
+    .nav__links {
+      display: flex; align-items: center; gap: 0;
+    }
+    .nav__links a {
+      font-family: var(--ff-body);
+      font-size: 14px; font-weight: 500;
+      color: var(--ink-mid);
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: background var(--t) var(--ease-out), color var(--t) var(--ease-out);
+    }
+    .nav__links a:hover {
+      background: var(--bg);
+      color: var(--primary-dark);
+    }
+
+    .nav__cta {
+      margin-left: var(--s3);
+      background: var(--primary);
+      color: #fff !important;
+      font-family: var(--ff-body);
+      font-size: 14px; font-weight: 600;
+      padding: 10px 22px;
+      border-radius: 6px;
+      transition: background var(--t-fast) var(--ease-out), transform 80ms var(--ease-out);
+      min-height: 44px;
+      display: inline-flex; align-items: center;
+    }
+    .nav__cta:hover { background: var(--primary-dark); }
+    .nav__cta:active { transform: scale(0.97); transition-duration: 60ms; }
+
+    /* Mobile */
+    .nav__hamburger {
+      display: none;
+      flex-direction: column; gap: 5px;
+      padding: 10px; cursor: pointer;
+      border-radius: 4px;
+      min-width: 44px; min-height: 44px;
+      align-items: center; justify-content: center;
+    }
+    .nav__hamburger span {
+      display: block; width: 22px; height: 2px;
+      background: var(--ink);
+      transition: transform var(--t), opacity var(--t);
+    }
+    .nav__hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav__hamburger.open span:nth-child(2) { opacity: 0; }
+    .nav__hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav__drawer {
+      display: flex;
+      flex-direction: column;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      padding: var(--s2) var(--s2) var(--s3);
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      pointer-events: none;
+      transition:
+        max-height 320ms var(--ease-out),
+        opacity    220ms var(--ease-out);
+    }
+    .nav__drawer.open {
+      max-height: 600px;
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .nav__drawer a {
+      font-size: 16px; font-weight: 500;
+      color: var(--ink-mid);
+      padding: 14px var(--s1);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav__drawer a:last-child { border-bottom: none; }
+    .nav__drawer .nav__cta {
+      margin: var(--s2) 0 0;
+      text-align: center;
+      display: block;
+    }
+
+    /* ─── HERO ───────────────────────────────── */
+    .hero {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: var(--s6) 0 var(--s7);
+    }
+    .hero__inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s6);
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .hero__inner { grid-template-columns: 1fr; gap: var(--s4); }
+    }
+
+    .hero__label {
+      display: inline-block;
+      background: rgba(125,43,104,.1);
+      color: var(--primary-dark);
+      font-size: 12px; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: 5px 12px; border-radius: 4px;
+      margin-bottom: var(--s2);
+    }
+    .hero__title {
+      font-family: var(--ff-head);
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      margin-bottom: var(--s3);
+      text-wrap: balance;
+    }
+    .hero__sub {
+      font-size: 16px; font-weight: 400;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      margin-bottom: var(--s4);
+      max-width: 52ch;
+      text-wrap: pretty;
+    }
+    .hero__actions {
+      display: flex; flex-wrap: wrap; gap: var(--s2);
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--primary);
+      color: #fff;
+      font-family: var(--ff-body);
+      font-size: 15px; font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 6px;
+      min-height: 48px;
+      transition: background var(--t-fast) var(--ease-out), transform 80ms var(--ease-out);
+      cursor: pointer;
+    }
+    .btn-primary:hover { background: var(--primary-dark); }
+    .btn-primary:active { transform: scale(0.97); transition-duration: 60ms; }
+    .btn-secondary {
+      display: inline-flex; align-items: center;
+      border: 1.5px solid var(--border);
+      color: var(--ink-mid);
+      font-family: var(--ff-body);
+      font-size: 15px; font-weight: 500;
+      padding: 11px 24px;
+      border-radius: 6px;
+      min-height: 48px;
+      transition: border-color var(--t-fast) var(--ease-out), color var(--t-fast) var(--ease-out), transform 80ms var(--ease-out);
+    }
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary-dark);
+    }
+    .btn-secondary:active { transform: scale(0.97); transition-duration: 60ms; }
+
+    /* Hero info card */
+    .hero__card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: var(--s3);
+    }
+    .hero__card-title {
+      font-family: var(--ff-head);
+      font-size: 13px; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: var(--s2);
+    }
+    .hero__card-row {
+      display: flex; justify-content: space-between;
+      align-items: baseline;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--border);
+      gap: var(--s2);
+    }
+    .hero__card-row:first-of-type { border-top: 1px solid var(--border); }
+    .hero__card-day {
+      font-size: 14px; font-weight: 400;
+      color: var(--ink-mid);
+    }
+    .hero__card-time {
+      font-family: var(--ff-head);
+      font-size: 14px; font-weight: 600;
+      color: var(--ink);
+      text-align: right;
+    }
+    .hero__card-note {
+      font-size: 12px; font-weight: 400;
+      color: var(--ink-light);
+    }
+    .hero__card-phone {
+      margin-top: var(--s3);
+      padding-top: var(--s3);
+      border-top: 1px solid var(--border);
+    }
+    .hero__card-phone-label {
+      font-size: 11px; font-weight: 500;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 4px;
+    }
+    .hero__card-phone-number {
+      font-family: var(--ff-head);
+      font-size: 22px; font-weight: 700;
+      color: var(--primary);
+      letter-spacing: -.01em;
+      transition: color var(--t-fast) var(--ease-out);
+    }
+    .hero__card-phone-number:hover { color: var(--primary-dark); }
+
+    /* ─── SECTION BASE ───────────────────────── */
+    .section { padding: var(--s7) 0; }
+    .section--alt { background: var(--bg); }
+    .section--dark { background: var(--bg-dark); color: #fff; }
+
+    .section__eyebrow {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--primary-dark);
+      margin-bottom: var(--s2);
+      display: block;
+    }
+    .section--dark .section__eyebrow { color: #6EE7E7; }
+
+    .section__title {
+      font-family: var(--ff-head);
+      font-size: clamp(24px, 3.5vw, 40px);
+      font-weight: 700;
+      line-height: 1.15;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      text-wrap: balance;
+    }
+    .section--dark .section__title { color: #fff; }
+
+    .section__intro {
+      font-size: 16px; font-weight: 400;
+      line-height: 1.7; color: var(--ink-mid);
+      max-width: 600px;
+      margin-top: var(--s2);
+      text-wrap: pretty;
+    }
+    .section--dark .section__intro { color: var(--on-dark-mid); }
+
+    .section__header { margin-bottom: var(--s5); }
+
+    /* ─── LEISTUNGEN GRID ────────────────────── */
+    .leistungen__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--border);
+    }
+    @media (max-width: 900px) {
+      .leistungen__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .leistungen__grid { grid-template-columns: 1fr; }
+    }
+
+    .leistung-item {
+      background: var(--white);
+      padding: var(--s4) var(--s3);
+      display: flex;
+      flex-direction: column;
+      gap: var(--s1);
+    }
+    .leistung-item__icon {
+      width: 40px; height: 40px;
+      background: rgba(232,145,28,.1);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: var(--s1);
+      flex-shrink: 0;
+    }
+    .leistung-item__icon svg {
+      width: 20px; height: 20px;
+      color: var(--brand-orange);
+    }
+    .leistung-item__title {
+      font-family: var(--ff-head);
+      font-size: 15px; font-weight: 600;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .leistung-item__text {
+      font-size: 13px; font-weight: 400;
+      color: var(--ink-mid);
+      line-height: 1.65;
+      text-wrap: pretty;
+    }
+
+    /* ─── ABOUT / PRAXIS ─────────────────────── */
+    .about__grid {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: var(--s5);
+      align-items: start;
+    }
+    @media (max-width: 768px) {
+      .about__grid { grid-template-columns: 1fr; gap: var(--s4); }
+    }
+
+    .about__profile {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: var(--s4);
+      text-align: center;
+    }
+    .about__avatar {
+      width: 80px; height: 80px;
+      border-radius: 50%;
+      background: var(--bg-section);
+      border: 3px solid var(--border);
+      margin: 0 auto var(--s2);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about__avatar svg {
+      width: 36px; height: 36px;
+      color: var(--ink-light);
+    }
+    .about__name {
+      font-family: var(--ff-head);
+      font-size: 16px; font-weight: 700;
+      color: var(--ink); margin-bottom: 4px;
+    }
+    .about__spec {
+      font-size: 13px; color: var(--ink-mid);
+      line-height: 1.5;
+    }
+    .about__badge {
+      display: inline-block;
+      background: rgba(125,43,104,.1);
+      color: var(--primary-dark);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: 4px 10px; border-radius: 20px;
+      margin-top: var(--s2);
+    }
+
+    .about__facts {
+      display: flex; flex-direction: column; gap: 0;
+    }
+    .about__fact {
+      display: flex; align-items: flex-start; gap: var(--s2);
+      padding: var(--s2) 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .about__fact:first-child { border-top: 1px solid var(--border); }
+    .about__fact-icon {
+      width: 32px; height: 32px; flex-shrink: 0;
+      background: rgba(232,145,28,.1);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      margin-top: 1px;
+    }
+    .about__fact-icon svg {
+      width: 16px; height: 16px;
+      color: var(--brand-orange);
+    }
+    .about__fact-label {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--ink-mid);
+    }
+    .about__fact-value {
+      font-size: 14px; font-weight: 400;
+      color: var(--ink-mid);
+      line-height: 1.5;
+    }
+
+    /* ─── SPRECHZEITEN TABLE ─────────────────── */
+    .hours__layout {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--s5);
+      align-items: start;
+    }
+    @media (max-width: 768px) { .hours__layout { grid-template-columns: 1fr; gap: var(--s4); } }
+
+    .hours__table-wrap {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .hours__table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .hours__table thead th {
+      background: var(--bg-dark);
+      color: var(--on-dark-body);
+      font-family: var(--ff-body);
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .08em; text-transform: uppercase;
+      padding: 12px var(--s3);
+      text-align: left;
+    }
+    .hours__table tbody tr {
+      border-bottom: 1px solid var(--border);
+    }
+    .hours__table tbody tr:last-child { border-bottom: none; }
+    .hours__table tbody tr:nth-child(even) { background: var(--bg); }
+    .hours__table td {
+      padding: 13px var(--s3);
+      font-size: 14px;
+    }
+    .hours__table td:first-child {
+      font-weight: 500;
+      color: var(--ink);
+    }
+    .hours__table td:last-child {
+      color: var(--ink-mid);
+      font-weight: 400;
+      text-align: right;
+    }
+    .hours__table .note {
+      font-size: 12px;
+      color: var(--ink-mid);
+    }
+
+    .hours__info { display: flex; flex-direction: column; gap: var(--s4); }
+    .hours__info-block {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: var(--s3);
+    }
+    .hours__info-title {
+      font-family: var(--ff-head);
+      font-size: 15px; font-weight: 700;
+      color: var(--ink);
+      margin-bottom: var(--s2);
+      display: flex; align-items: center; gap: 8px;
+    }
+    .hours__info-title svg {
+      width: 18px; height: 18px;
+      color: var(--brand-orange);
+    }
+    .hours__info-text {
+      font-size: 14px; font-weight: 400;
+      line-height: 1.7; color: var(--ink-mid);
+      text-wrap: pretty;
+    }
+    .hours__contact-list {
+      display: flex; flex-direction: column; gap: 8px;
+      margin-top: var(--s1);
+    }
+    .hours__contact-item {
+      display: flex; align-items: center; gap: 10px;
+      font-size: 14px; color: var(--ink-mid);
+    }
+    .hours__contact-item svg {
+      width: 16px; height: 16px;
+      color: var(--brand-orange); flex-shrink: 0;
+    }
+    .hours__contact-item a { color: var(--primary-dark); font-weight: 500; }
+    .hours__contact-item a:hover { text-decoration: underline; }
+
+    /* ─── MAP / ANFAHRT ──────────────────────── */
+    .anfahrt__layout {
+      display: grid;
+      grid-template-columns: 1fr 2fr;
+      gap: 2px;
+    }
+    @media (max-width: 768px) { .anfahrt__layout { grid-template-columns: 1fr; } }
+
+    .anfahrt__info {
+      background: var(--bg-dark);
+      color: #fff;
+      padding: var(--s5) var(--s4);
+      display: flex; flex-direction: column;
+      gap: var(--s3);
+    }
+    .anfahrt__info-title {
+      font-family: var(--ff-head);
+      font-size: 22px; font-weight: 700;
+      color: #fff;
+      margin-bottom: var(--s1);
+    }
+    .anfahrt__info-row {
+      display: flex; align-items: flex-start; gap: var(--s2);
+    }
+    .anfahrt__info-row svg {
+      width: 18px; height: 18px;
+      color: #6EE7E7; flex-shrink: 0;
+      margin-top: 2px;
+    }
+    .anfahrt__info-row-text {
+      font-size: 14px; font-weight: 400;
+      color: var(--on-dark-body);
+      line-height: 1.6;
+    }
+    .anfahrt__info-row-text strong { color: #fff; font-weight: 500; }
+    .anfahrt__map { height: 420px; }
+    .anfahrt__map iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+    /* ─── KONTAKT CTA ────────────────────────── */
+    /* bg: --primary-dark (#651F55) → white 10.8:1; body text at .90 → passt ✓ */
+    .kontakt {
+      background: var(--primary-dark);
+      padding: var(--s6) 0;
+      text-align: center;
+    }
+    .kontakt__title {
+      font-family: var(--ff-head);
+      font-size: clamp(22px, 3.5vw, 36px);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: var(--s2);
+    }
+    .kontakt__sub {
+      font-size: 16px; font-weight: 400;
+      color: rgba(255,255,255,.9);
+      margin-bottom: var(--s4);
+      text-wrap: pretty;
+    }
+    .kontakt__phone {
+      font-family: var(--ff-head);
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 700;
+      color: #fff;
+      display: block;
+      margin-bottom: 8px;
+      letter-spacing: -.02em;
+      transition: opacity var(--t);
+    }
+    .kontakt__phone:hover { opacity: .85; }
+    .kontakt__phone-note {
+      font-size: 14px; color: rgba(255,255,255,.9);
+      margin-bottom: var(--s4);
+    }
+    .btn-white {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: #fff;
+      color: var(--primary-dark);
+      font-family: var(--ff-body);
+      font-size: 15px; font-weight: 600;
+      padding: 13px 28px;
+      border-radius: 6px;
+      min-height: 48px;
+      transition: background var(--t-fast) var(--ease-out), transform 80ms var(--ease-out);
+    }
+    .btn-white:hover { background: #f5e8f2; }
+    .btn-white:active { transform: scale(0.97); transition-duration: 60ms; }
+
+    /* ─── FOOTER ─────────────────────────────── */
+    footer {
+      background: #0C3D3A;
+      color: rgba(255,255,255,.5);
+      padding: var(--s5) 0 var(--s3);
+    }
+    .footer__grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: var(--s5);
+      margin-bottom: var(--s4);
+    }
+    @media (max-width: 768px) { .footer__grid { grid-template-columns: 1fr; gap: var(--s3); } }
+
+    .footer__brand {
+      font-family: var(--ff-head);
+      font-size: 16px; font-weight: 700;
+      color: rgba(255,255,255,.85);
+      margin-bottom: 4px;
+    }
+    .footer__brand-sub {
+      font-size: 11px; letter-spacing: .08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      margin-bottom: var(--s2);
+    }
+    .footer__body {
+      font-size: 13px; font-weight: 400;
+      line-height: 1.7; color: rgba(255,255,255,.5);
+      max-width: 300px;
+      text-wrap: pretty;
+    }
+    .footer__col-title {
+      font-size: 10px; font-weight: 600;
+      letter-spacing: .1em; text-transform: uppercase;
+      color: rgba(255,255,255,.35);
+      margin-bottom: var(--s2);
+    }
+    .footer__links { display: flex; flex-direction: column; gap: 8px; }
+    .footer__links a {
+      font-size: 13px; font-weight: 400;
+      color: rgba(255,255,255,.5);
+      transition: color var(--t);
+    }
+    .footer__links a:hover { color: rgba(255,255,255,.85); }
+    .footer__hr { border: none; border-top: 1px solid rgba(255,255,255,.08); margin-bottom: var(--s3); }
+    .footer__bottom {
+      display: flex; justify-content: space-between;
+      align-items: center;
+      font-size: 12px; flex-wrap: wrap; gap: var(--s2);
+    }
+    .footer__bottom a { color: rgba(255,255,255,.4); }
+    .footer__bottom a:hover { color: rgba(255,255,255,.7); }
+
+    /* ─── HERO ENTRANCE ──────────────────────── */
+    @keyframes hero-rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: none; }
+    }
+    @keyframes hero-fade {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .hero__label   { animation: hero-fade 400ms var(--ease-out) both; }
+      .hero__title   { animation: hero-rise 600ms var(--ease-out)  80ms both; }
+      .hero__sub     { animation: hero-fade 500ms var(--ease-out) 200ms both; }
+      .hero__actions { animation: hero-fade 500ms var(--ease-out) 310ms both; }
+      .hero__card    { animation: hero-rise 700ms var(--ease-out) 120ms both; }
+    }
+
+    /* ─── REVEAL ─────────────────────────────── */
+    /* Default: always visible – animation is a progressive enhancement */
+    .reveal { opacity: 1; transform: none; }
+
+    @media (prefers-reduced-motion: no-preference) {
+      /* Standard reveal: fade + rise */
+      .reveal:not(.visible) {
+        opacity: 0; transform: translateY(18px);
+        transition: opacity 520ms var(--ease-out), transform 520ms var(--ease-out);
+        transition-delay: calc(var(--i, 0) * 45ms);
+      }
+      .reveal.visible { opacity: 1; transform: none; }
+
+      /* Fade-only variant for structural headers */
+      .reveal--fade:not(.visible) {
+        opacity: 0; transform: none;
+        transition: opacity 400ms var(--ease-out);
+      }
+    }
+
+    /* ─── RESPONSIVE NAV ─────────────────────── */
+    @media (max-width: 900px) {
+      .nav__links, .nav__cta.desktop { display: none; }
+      .nav__hamburger { display: flex; }
+    }
+    @media (min-width: 901px) { .nav__hamburger { display: none; } }
+  </style>
+</head>
+<body>
+  <a href="#main" class="skip-link">Zum Inhalt springen</a>
+
+  <!-- ═══ BAR ══════════════════════════════════ -->
+  <div class="bar" role="banner">
+    Terminvereinbarung ausschließlich telefonisch:
+    <strong><a href="tel:048239070">04823-9070</a></strong>
+    &nbsp;·&nbsp; Mo–Do 8:00–12:30 Uhr
+  </div>
+
+  <!-- ═══ NAVBAR ════════════════════════════════ -->
+  <nav class="nav" aria-label="Hauptnavigation">
+    <div class="container">
+      <div class="nav__inner">
+        <a href="#" class="nav__logo" aria-label="Startseite">
+          <img src="images/Logo.png" alt="" aria-hidden="true" class="nav__logo-img" width="38" height="38" />
+          <span class="nav__logo-text">
+            <span class="nav__logo-name">Dr. med. Mona Wendrich-Rönne</span>
+            <span class="nav__logo-sub">Gynäkologie &amp; Geburtshilfe · Wilster</span>
+          </span>
+        </a>
+
+        <ul class="nav__links" role="list">
+          <li><a href="#leistungen">Leistungen</a></li>
+          <li><a href="#praxis">Praxis</a></li>
+          <li><a href="#sprechzeiten">Sprechzeiten</a></li>
+          <li><a href="#anfahrt">Anfahrt</a></li>
+        </ul>
+
+        <a href="tel:048239070" class="nav__cta desktop" aria-label="Jetzt anrufen">
+          Termin: 04823-9070
+        </a>
+
+        <button class="nav__hamburger" id="hamburger"
+          aria-label="Menü öffnen" aria-expanded="false" aria-controls="drawer">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+
+      <div class="nav__drawer" id="drawer" role="dialog" aria-label="Mobile Navigation">
+        <a href="#leistungen">Leistungen</a>
+        <a href="#praxis">Praxis &amp; Team</a>
+        <a href="#sprechzeiten">Sprechzeiten</a>
+        <a href="#anfahrt">Anfahrt</a>
+        <a href="#kontakt">Kontakt</a>
+        <a href="tel:048239070" class="nav__cta">04823-9070 · Jetzt anrufen</a>
+      </div>
+    </div>
+  </nav>
+
+  <main id="main">
+
+    <!-- ═══ HERO ══════════════════════════════════ -->
+    <section class="hero" aria-label="Willkommen">
+      <div class="container">
+        <div class="hero__inner">
+          <div>
+            <span class="hero__label">Fachärztin · GKV &amp; PKV</span>
+            <h1 class="hero__title">Frauenarztpraxis in Wilster</h1>
+            <p class="hero__sub">
+              Fachärztliche Versorgung in Gynäkologie und Geburtshilfe.
+              Diagnostik, Vorsorge und Behandlung – persönlich und evidenzbasiert.
+            </p>
+            <div class="hero__actions">
+              <a href="tel:048239070" class="btn-primary">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.22A2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.07 6.07l1.12-1.12a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Termin vereinbaren
+              </a>
+              <a href="#leistungen" class="btn-secondary">Leistungsübersicht</a>
+            </div>
+          </div>
+
+          <div class="hero__card" aria-label="Sprechzeiten Übersicht">
+            <div class="hero__card-title">Sprechzeiten</div>
+            <div class="hero__card-row">
+              <span class="hero__card-day">Montag</span>
+              <span class="hero__card-time">8:00 – 12:30 Uhr</span>
+            </div>
+            <div class="hero__card-row">
+              <span class="hero__card-day">Dienstag</span>
+              <span class="hero__card-time">8:00 – 12:30 Uhr<br><span class="hero__card-note">+ Nachmittag n. V.</span></span>
+            </div>
+            <div class="hero__card-row">
+              <span class="hero__card-day">Mittwoch</span>
+              <span class="hero__card-time">8:00 – 12:30 Uhr</span>
+            </div>
+            <div class="hero__card-row">
+              <span class="hero__card-day">Donnerstag</span>
+              <span class="hero__card-time">8:00 – 12:30 Uhr</span>
+            </div>
+            <div class="hero__card-row">
+              <span class="hero__card-day">Freitag</span>
+              <span class="hero__card-time hero__card-note">Nur nach Vereinbarung</span>
+            </div>
+            <div class="hero__card-phone">
+              <div class="hero__card-phone-label">Telefon</div>
+              <a href="tel:048239070" class="hero__card-phone-number">04823-9070</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ LEISTUNGEN ════════════════════════════ -->
+    <section class="section" id="leistungen" aria-labelledby="leistungen-heading">
+      <div class="container">
+        <header class="section__header reveal reveal--fade">
+          <span class="section__eyebrow">Leistungsspektrum</span>
+          <h2 class="section__title" id="leistungen-heading">Gynäkologische Leistungen</h2>
+          <p class="section__intro">
+            Alle Kassenleistungen sowie ausgewählte IGeL-Leistungen. Überweisungen sind nicht erforderlich.
+          </p>
+        </header>
+      </div>
+
+      <div class="container">
+        <div class="leistungen__grid">
+
+          <div class="leistung-item reveal" style="--i:0">
+            <div class="leistung-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4"/><path d="M21 12c0 4.97-4.03 9-9 9S3 16.97 3 12 7.03 3 12 3s9 4.03 9 9z"/></svg>
+            </div>
+            <div class="leistung-item__title">Krebsvorsorge</div>
+            <p class="leistung-item__text">Zervix-Zytologie (Pap-Abstrich), HPV-Test, Tastuntersuchung der Brust, Ultraschall der Brust auf Wunsch (IGeL).</p>
+          </div>
+
+          <div class="leistung-item reveal" style="--i:1">
+            <div class="leistung-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="12" cy="14" rx="7" ry="8"/><path d="M12 6 C12 6 14 2 18 3"/></svg>
+            </div>
+            <div class="leistung-item__title">Schwangerschaft &amp; Kinderwunsch</div>
+            <p class="leistung-item__text">Mutterschaftsvorsorge, 3D/4D-Ultraschall, Ersttrimester-Screening, Kinderwunschberatung.</p>
+          </div>
+
+          <div class="leistung-item reveal" style="--i:2">
+            <div class="leistung-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>
+            </div>
+            <div class="leistung-item__title">Verhütungsberatung</div>
+            <p class="leistung-item__text">Beratung zu hormonellen und nicht-hormonellen Methoden, Einlage von Hormonspirale und Kupferspirale.</p>
+          </div>
+
+          <div class="leistung-item reveal" style="--i:3">
+            <div class="leistung-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </div>
+            <div class="leistung-item__title">Wechseljahre</div>
+            <p class="leistung-item__text">Diagnostik, Hormontherapie (MHT), Beratung zu nicht-hormonellen Behandlungsoptionen.</p>
+          </div>
+
+          <div class="leistung-item reveal" style="--i:4">
+            <div class="leistung-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg>
+            </div>
+            <div class="leistung-item__title">Gynäkologische Diagnostik</div>
+            <p class="leistung-item__text">Kolposkopie, gynäkologischer Ultraschall, Labordiagnostik, Behandlung von Zyklusstörungen und Infektionen.</p>
+          </div>
+
+          <div class="leistung-item reveal" style="--i:5">
+            <div class="leistung-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="10" r="5"/><path d="M6 20c0-3.31 2.69-6 6-6s6 2.69 6 6"/><path d="M15 7l4-4"/><path d="M19 3l2 2"/></svg>
+            </div>
+            <div class="leistung-item__title">Jugendsprechstunde</div>
+            <p class="leistung-item__text">Erstuntersuchung, HPV-Impfung, Verhütungsberatung für Jugendliche und junge Erwachsene.</p>
+          </div>
+
+          <div class="leistung-item reveal" style="--i:6">
+            <div class="leistung-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M9 13h6M9 17h4"/></svg>
+            </div>
+            <div class="leistung-item__title">Impfungen</div>
+            <p class="leistung-item__text">HPV-Schutzimpfung (Gardasil 9), Influenza, weitere Impfungen gemäß STIKO-Empfehlung.</p>
+          </div>
+
+          <div class="leistung-item reveal" style="--i:7">
+            <div class="leistung-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+            </div>
+            <div class="leistung-item__title">Psychosomatik</div>
+            <p class="leistung-item__text">Psychosomatische Grundversorgung, Begleitung bei klimakterischen Beschwerden mit psychischer Komponente.</p>
+          </div>
+
+          <div class="leistung-item reveal" style="--i:8">
+            <div class="leistung-item__icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+            </div>
+            <div class="leistung-item__title">IGeL-Leistungen</div>
+            <p class="leistung-item__text">Brustultraschall, erweiterte Krebsvorsorge, Hormonanalysen. Auf Wunsch und Kosten der Patientin.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ PRAXIS ════════════════════════════════ -->
+    <section class="section section--alt" id="praxis" aria-labelledby="praxis-heading">
+      <div class="container">
+        <header class="section__header reveal reveal--fade">
+          <span class="section__eyebrow">Die Praxis</span>
+          <h2 class="section__title" id="praxis-heading">Praxis &amp; Qualifikationen</h2>
+        </header>
+
+        <div class="about__grid">
+          <div class="about__profile reveal">
+            <div class="about__avatar" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>
+            </div>
+            <div class="about__name">Dr. med. Mona Wendrich-Rönne</div>
+            <div class="about__spec">Fachärztin für Gynäkologie<br>und Geburtshilfe</div>
+            <span class="about__badge">Kassenzulassung</span>
+          </div>
+
+          <div class="about__facts reveal">
+            <div class="about__fact">
+              <div class="about__fact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              </div>
+              <div>
+                <div class="about__fact-label">Facharztbezeichnung</div>
+                <div class="about__fact-value">Fachärztin für Gynäkologie und Geburtshilfe (DEGUM)</div>
+              </div>
+            </div>
+            <div class="about__fact">
+              <div class="about__fact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8v4h8V3z"/></svg>
+              </div>
+              <div>
+                <div class="about__fact-label">Ultraschall</div>
+                <div class="about__fact-value">3D/4D-Ultraschall – zertifiziertes System für Schwangerschaftsdiagnostik</div>
+              </div>
+            </div>
+            <div class="about__fact">
+              <div class="about__fact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+              </div>
+              <div>
+                <div class="about__fact-label">Zusatzqualifikation</div>
+                <div class="about__fact-value">Psychosomatische Grundversorgung</div>
+              </div>
+            </div>
+            <div class="about__fact">
+              <div class="about__fact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div>
+                <div class="about__fact-label">Zulassung</div>
+                <div class="about__fact-value">Kassenärztliche Vereinigung Schleswig-Holstein – GKV &amp; PKV</div>
+              </div>
+            </div>
+            <div class="about__fact">
+              <div class="about__fact-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div class="about__fact-label">Standort</div>
+                <div class="about__fact-value">Rathausstr. 2, 25554 Wilster – barrierefreier Zugang</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ SPRECHZEITEN ══════════════════════════ -->
+    <section class="section" id="sprechzeiten" aria-labelledby="hours-heading">
+      <div class="container">
+        <header class="section__header reveal reveal--fade">
+          <span class="section__eyebrow">Öffnungszeiten</span>
+          <h2 class="section__title" id="hours-heading">Sprechzeiten</h2>
+        </header>
+
+        <div class="hours__layout">
+          <div class="reveal">
+            <div class="hours__table-wrap">
+              <table class="hours__table" aria-label="Sprechzeiten der Praxis">
+                <thead>
+                  <tr>
+                    <th scope="col">Tag</th>
+                    <th scope="col" style="text-align:right">Öffnungszeit</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>Montag</td>
+                    <td>8:00 – 12:30 Uhr</td>
+                  </tr>
+                  <tr>
+                    <td>Dienstag</td>
+                    <td>8:00 – 12:30 Uhr<br><span class="note">+ Nachmittag nach Vereinbarung</span></td>
+                  </tr>
+                  <tr>
+                    <td>Mittwoch</td>
+                    <td>8:00 – 12:30 Uhr</td>
+                  </tr>
+                  <tr>
+                    <td>Donnerstag</td>
+                    <td>8:00 – 12:30 Uhr</td>
+                  </tr>
+                  <tr>
+                    <td>Freitag</td>
+                    <td><span class="note">Nur nach Vereinbarung</span></td>
+                  </tr>
+                  <tr>
+                    <td>Frühsprechstunde</td>
+                    <td><span class="note">ab 7:15 Uhr (auf Anfrage)</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="hours__info reveal">
+            <div class="hours__info-block">
+              <div class="hours__info-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.22A2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.07 6.07l1.12-1.12a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                Terminvereinbarung
+              </div>
+              <p class="hours__info-text">
+                Termine werden ausschließlich telefonisch vergeben.
+                Bitte rufen Sie ab <strong>8:00 Uhr</strong> an.
+                Absagen sind mindestens <strong>48 Stunden</strong> vorher erforderlich.
+              </p>
+            </div>
+            <div class="hours__info-block">
+              <div class="hours__info-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                Kontakt
+              </div>
+              <div class="hours__contact-list">
+                <div class="hours__contact-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.22A2 2 0 0 1 3.58 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.07 6.07l1.12-1.12a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                  <a href="tel:048239070">04823-9070</a>
+                </div>
+                <div class="hours__contact-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                  <a href="mailto:info@frauenarztpraxis-wilster.de">info@frauenarztpraxis-wilster.de</a>
+                </div>
+                <div class="hours__contact-item">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                  <span>Rathausstr. 2, 25554 Wilster</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ ANFAHRT ════════════════════════════════ -->
+    <section id="anfahrt" aria-labelledby="anfahrt-heading">
+      <div class="anfahrt__layout">
+        <div class="anfahrt__info">
+          <div>
+            <h2 class="anfahrt__info-title" id="anfahrt-heading">Anfahrt</h2>
+          </div>
+          <div class="anfahrt__info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <div class="anfahrt__info-row-text">
+              <strong>Frauenarztpraxis Dr. med. Mona Wendrich-Rönne</strong><br>
+              Rathausstr. 2<br>25554 Wilster
+            </div>
+          </div>
+          <div class="anfahrt__info-row">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <div class="anfahrt__info-row-text">
+              Mo–Do 8:00–12:30 Uhr<br>
+              Di auch nachmittags n. V.
+            </div>
+          </div>
+          <a
+            href="https://maps.google.com/?q=Rathausstr.+2,+25554+Wilster"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary"
+            style="align-self:flex-start; margin-top:8px;"
+            aria-label="Route in Google Maps berechnen"
+          >
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+            Route berechnen
+          </a>
+        </div>
+        <div class="anfahrt__map">
+          <iframe
+            title="Lage der Frauenarztpraxis Dr. Wendrich-Rönne in Wilster"
+            loading="lazy"
+            allowfullscreen
+            referrerpolicy="no-referrer-when-downgrade"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2357.0!2d9.377!3d53.926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sRathausstr.+2%2C+25554+Wilster!5e0!3m2!1sde!2sde!4v1700000000000"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ KONTAKT CTA ════════════════════════════ -->
+    <section class="kontakt" id="kontakt" aria-labelledby="kontakt-heading">
+      <div class="container">
+        <div class="reveal">
+          <h2 class="kontakt__title" id="kontakt-heading">Termin vereinbaren</h2>
+          <p class="kontakt__sub">Rufen Sie uns zu den Sprechzeiten an. Kein Onlinetermin – nur telefonisch.</p>
+          <a href="tel:048239070" class="kontakt__phone" aria-label="Jetzt anrufen: 04823-9070">04823-9070</a>
+          <p class="kontakt__phone-note">Mo–Do · 8:00–12:30 Uhr &nbsp;·&nbsp; Di auch nachmittags n. V.</p>
+          <a href="mailto:info@frauenarztpraxis-wilster.de" class="btn-white">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            E-Mail schreiben
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══ FOOTER ════════════════════════════════ -->
+  <footer>
+    <div class="container">
+      <div class="footer__grid">
+        <div>
+          <div class="footer__brand">Dr. med. Mona Wendrich-Rönne</div>
+          <div class="footer__brand-sub">Gynäkologie &amp; Geburtshilfe · Wilster</div>
+          <p class="footer__body">
+            Fachärztliche Praxis für Gynäkologie und Geburtshilfe in Wilster.
+            Rathausstr. 2 · 25554 Wilster · Tel. 04823-9070
+          </p>
+        </div>
+        <div>
+          <div class="footer__col-title">Leistungen</div>
+          <ul class="footer__links">
+            <li><a href="#leistungen">Krebsvorsorge</a></li>
+            <li><a href="#leistungen">Schwangerschaft</a></li>
+            <li><a href="#leistungen">Verhütung</a></li>
+            <li><a href="#leistungen">Wechseljahre</a></li>
+            <li><a href="#leistungen">Impfungen</a></li>
+          </ul>
+        </div>
+        <div>
+          <div class="footer__col-title">Kontakt</div>
+          <ul class="footer__links">
+            <li><a href="tel:048239070">04823-9070</a></li>
+            <li><a href="mailto:info@frauenarztpraxis-wilster.de">E-Mail</a></li>
+            <li><a href="#anfahrt">Rathausstr. 2, Wilster</a></li>
+            <li><a href="#sprechzeiten">Sprechzeiten</a></li>
+          </ul>
+        </div>
+      </div>
+      <hr class="footer__hr" />
+      <div class="footer__bottom">
+        <span>© 2025 Frauenarztpraxis Dr. med. Mona Wendrich-Rönne · Wilster</span>
+        <div style="display:flex;gap:20px;">
+          <a href="#">Impressum</a>
+          <a href="#">Datenschutz</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Mobile nav
+    const hamburger = document.getElementById('hamburger');
+    const drawer    = document.getElementById('drawer');
+    hamburger.addEventListener('click', () => {
+      const open = hamburger.classList.toggle('open');
+      drawer.classList.toggle('open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      hamburger.setAttribute('aria-label', open ? 'Menü schließen' : 'Menü öffnen');
+    });
+    drawer.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+      hamburger.classList.remove('open');
+      drawer.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+      hamburger.setAttribute('aria-label', 'Menü öffnen');
+    }));
+
+    // Scroll reveal
+    const io = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+      }),
+      { threshold: 0.08, rootMargin: '0px 0px -40px 0px' }
+    );
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  </script>
+</body>
+</html>

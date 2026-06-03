@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zugang</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; }
+
+        body {
+            font-family: 'Inter', system-ui, sans-serif;
+            background: #111;
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 40px 24px;
+        }
+
+        .card {
+            width: 100%;
+            max-width: 340px;
+            display: flex;
+            flex-direction: column;
+            gap: 48px;
+        }
+
+        /* Wordmark – präsenter, aber nicht laut */
+        .wordmark {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .wordmark-name {
+            font-size: 18px;
+            font-weight: 400;
+            color: rgba(255,255,255,0.88);
+            letter-spacing: -0.01em;
+            line-height: 1.2;
+        }
+        .wordmark-sub {
+            font-size: 11px;
+            font-weight: 300;
+            color: rgba(255,255,255,0.55);
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .body-text {
+            font-size: 14px;
+            font-weight: 300;
+            line-height: 1.8;
+            color: rgba(255,255,255,0.65);
+            max-width: 30ch;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .field-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .field-input {
+            width: 100%;
+            background: transparent;
+            border: none;
+            border-bottom: 1px solid rgba(255,255,255,0.15);
+            border-radius: 0;
+            color: rgba(255,255,255,0.88);
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 15px;
+            font-weight: 300;
+            padding: 10px 0;
+            outline: none;
+            letter-spacing: 0.08em;
+            transition: border-color 0.2s;
+            -webkit-appearance: none;
+        }
+        .field-input:focus {
+            border-color: rgba(255,255,255,0.45);
+        }
+        .field-input::placeholder {
+            color: rgba(255,255,255,0.15);
+        }
+
+        .error {
+            font-size: 12px;
+            font-weight: 300;
+            font-style: italic;
+            color: #f87171;
+            min-height: 16px;
+        }
+
+        /* ── GLASS BUTTON ─────────────────────────── */
+        .submit-btn {
+            margin-top: 12px;
+            position: relative;
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            padding: 10px 22px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter', system-ui, sans-serif;
+            font-size: 13px;
+            font-weight: 400;
+            letter-spacing: 0.03em;
+            color: rgba(255,255,255,0.88);
+            overflow: visible;
+
+            /* Clear glass: transparent body, light only at top edge */
+            background: linear-gradient(
+                180deg,
+                rgba(255,255,255,0.10) 0%,
+                rgba(255,255,255,0.0) 60%
+            );
+            backdrop-filter: blur(6px) saturate(1.4);
+            -webkit-backdrop-filter: blur(6px) saturate(1.4);
+            box-shadow:
+                inset 0 0.5px 0 rgba(255,255,255,0.65),
+                0 0 0 0.5px rgba(255,255,255,0.16),
+                0 1px 4px rgba(0,0,0,0.18);
+
+            transition:
+                background 0.15s ease,
+                box-shadow 0.15s ease,
+                transform 0.12s cubic-bezier(0.16, 1, 0.3, 1),
+                color 0.15s ease;
+        }
+
+        /* Purple glow underneath – fires on click */
+        .submit-btn::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            border-radius: 13px;
+            background: radial-gradient(
+                ellipse 85% 50% at 50% 115%,
+                rgba(140, 40, 220, 0.9) 0%,
+                rgba(100, 20, 180, 0.45) 45%,
+                transparent 68%
+            );
+            opacity: 0;
+            z-index: -1;
+            filter: blur(6px);
+            transition: opacity 0.06s ease;
+        }
+
+        .submit-btn:hover {
+            color: #fff;
+            background: linear-gradient(
+                180deg,
+                rgba(255,255,255,0.16) 0%,
+                rgba(255,255,255,0.01) 55%
+            );
+            box-shadow:
+                inset 0 0.5px 0 rgba(255,255,255,0.75),
+                0 0 0 0.5px rgba(255,255,255,0.22),
+                0 2px 8px rgba(0,0,0,0.22);
+            transform: translateY(-0.5px);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.97) translateY(0.5px);
+            background: linear-gradient(
+                180deg,
+                rgba(255,255,255,0.07) 0%,
+                rgba(255,255,255,0.0) 55%
+            );
+            box-shadow:
+                inset 0 0.5px 0 rgba(255,255,255,0.4),
+                0 0 0 0.5px rgba(255,255,255,0.1);
+        }
+        .submit-btn:active::before { opacity: 1; }
+
+        /* Smoke particles */
+        @keyframes smoke-rise {
+            0%   { opacity: 0.65; transform: translateY(0) scale(1) translateX(var(--x, 0px)); }
+            60%  { opacity: 0.25; transform: translateY(-14px) scale(2.2) translateX(calc(var(--x, 0px) * 1.4)); }
+            100% { opacity: 0;   transform: translateY(-26px) scale(3.2) translateX(calc(var(--x, 0px) * 2)); }
+        }
+        .smoke {
+            position: absolute;
+            bottom: 2px;
+            width: 5px; height: 5px;
+            border-radius: 50%;
+            background: rgba(160, 60, 255, 0.7);
+            pointer-events: none;
+            filter: blur(3px);
+            animation: smoke-rise var(--dur, 0.7s) ease-out forwards;
+            z-index: -1;
+        }
+
+        .footer {
+            font-size: 11px;
+            font-weight: 300;
+            color: rgba(255,255,255,0.14);
+        }
+
+    </style>
+</head>
+<body>
+    <div class="card">
+
+        <div class="wordmark">
+            <div class="wordmark-name">Felix Rönne</div>
+            <div class="wordmark-sub">Studio</div>
+        </div>
+
+        <p class="body-text">
+            Ich freue mich, Ihnen diese Website vorab zu zeigen.
+            Bitte geben Sie das Ihnen mitgeteilte Passwort ein.
+        </p>
+
+        <form method="POST" action="/api/auth">
+            <label class="field-label" for="pw">Passwort</label>
+            <input class="field-input" id="pw" name="password" type="password"
+                   placeholder="••••••••" autocomplete="off" required>
+            <span class="error" id="err-msg"></span>
+            <button class="submit-btn" type="submit" id="open-btn">Öffnen</button>
+        </form>
+
+        <div class="footer">© 2026</div>
+    </div>
+
+    <script>
+        if (new URLSearchParams(location.search).get('err')) {
+            document.getElementById('err-msg').textContent = 'Falsches Passwort.';
+        }
+
+        // Smoke particles on click
+        const btn = document.getElementById('open-btn');
+        btn.addEventListener('mousedown', spawnSmoke);
+        btn.addEventListener('touchstart', spawnSmoke, { passive: true });
+
+        function spawnSmoke() {
+            const count = 7;
+            for (let i = 0; i < count; i++) {
+                const p = document.createElement('span');
+                p.className = 'smoke';
+                const spread = (Math.random() - 0.5) * 60;
+                p.style.cssText = `
+                    left: ${20 + Math.random() * 60}%;
+                    --x: ${spread}px;
+                    --dur: ${0.55 + Math.random() * 0.35}s;
+                    animation-delay: ${Math.random() * 0.12}s;
+                `;
+                btn.appendChild(p);
+                p.addEventListener('animationend', () => p.remove());
+            }
+        }
+    </script>
+</body>
+</html>
