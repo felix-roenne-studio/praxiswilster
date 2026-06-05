@@ -84,7 +84,7 @@
             transition: border-color 0.15s;
             -webkit-appearance: none;
         }
-        .field-input:focus { border-color: #7D2B68; background: #fff; }
+        .field-input:focus { border-color: #1a1a1a; background: #fff; }
         .field-input::placeholder { color: #bbb; }
 
         textarea.field-input {
@@ -111,11 +111,11 @@
             font-family: 'Inter', system-ui, sans-serif;
             font-size: 14px; font-weight: 500;
             color: #fff;
-            background: #7D2B68;
-            box-shadow: 0 1px 3px rgba(125,43,104,.25);
+            background: #1a1a1a;
+            box-shadow: 0 1px 3px rgba(0,0,0,.15);
             transition: background 0.15s, transform 0.1s;
         }
-        .btn:hover  { background: #651F55; }
+        .btn:hover  { background: #333; }
         .btn:active { transform: scale(0.97); }
         .btn:disabled { opacity: 0.4; cursor: not-allowed; pointer-events: none; }
 
@@ -173,7 +173,7 @@
             justify-content: center;
             transition: border-color 0.15s, color 0.15s, background 0.15s;
         }
-        .add-btn:hover { border-color: #7D2B68; color: #7D2B68; background: #fdf7fc; }
+        .add-btn:hover { border-color: #1a1a1a; color: #1a1a1a; background: #f0f0f0; }
         .add-btn-icon { font-size: 16px; line-height: 1; }
 
         /* Toggle */
@@ -214,7 +214,7 @@
             box-shadow: 0 1px 3px rgba(0,0,0,.2);
             transition: transform 0.2s;
         }
-        .toggle input:checked + .toggle-track { background: #7D2B68; }
+        .toggle input:checked + .toggle-track { background: #1a1a1a; }
         .toggle input:checked + .toggle-track::after { transform: translateX(18px); }
 
         .date-row {
