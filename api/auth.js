@@ -1,8 +1,19 @@
+import { rateLimit, getIp } from './_ratelimit.js';
+
 export const config = { runtime: 'nodejs' };
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.status(405).end('Method Not Allowed');
+    return;
+  }
+
+  const ip = getIp(req);
+  const { ok, retryAfter } = rateLimit(ip, { max: 10, windowMs: 15 * 60 * 1000 });
+  if (!ok) {
+    res.setHeader('Retry-After', retryAfter);
+    res.writeHead(302, { Location: '/gate.html?err=2' });
+    res.end();
     return;
   }
 
