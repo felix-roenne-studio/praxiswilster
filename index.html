@@ -757,6 +757,52 @@
     .anfahrt__map iframe { width: 100%; height: 100%; border: 0; display: block; }
     #praxis-map { width: 100%; height: 100%; }
 
+    /* ─── MOBILE STICKY BAR ─────────────────── */
+    .mobile-bar {
+      display: none;
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 300;
+      background: var(--white);
+      border-top: 1px solid var(--border);
+      box-shadow: 0 -2px 12px rgba(0,0,0,.08);
+      padding-bottom: env(safe-area-inset-bottom);
+    }
+    .mobile-bar__inner {
+      display: flex;
+      align-items: stretch;
+    }
+    .mobile-bar__btn {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      padding: 10px 4px;
+      color: var(--ink-mid);
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border-right: 1px solid var(--border);
+      transition: background var(--t-fast), color var(--t-fast);
+      min-height: 56px;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .mobile-bar__btn:last-child { border-right: none; }
+    .mobile-bar__btn:active { background: var(--bg); color: var(--primary); }
+    .mobile-bar__btn svg { width: 20px; height: 20px; flex-shrink: 0; }
+    .mobile-bar__btn--call { color: var(--primary); }
+    .mobile-bar__btn--call svg { stroke: var(--primary); }
+
+    @media (max-width: 768px) {
+      .mobile-bar { display: block; }
+      /* Pad the footer so bar doesn't cover it */
+      footer { padding-bottom: calc(56px + env(safe-area-inset-bottom)); }
+    }
+
     /* ─── KONTAKT CTA ────────────────────────── */
     /* bg: --primary-dark (#651F55) → white 10.8:1; body text at .90 → passt ✓ */
     .kontakt {
@@ -1446,6 +1492,24 @@
       })
       .catch(() => {});
   </script>
+  <!-- ═══ MOBILE STICKY BAR ══════════════════════ -->
+  <nav class="mobile-bar" aria-label="Schnellzugriff">
+    <div class="mobile-bar__inner">
+      <a href="tel:048239070" class="mobile-bar__btn mobile-bar__btn--call">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.07 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 2.98 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21 16z"/></svg>
+        Anrufen
+      </a>
+      <a href="#sprechzeiten" class="mobile-bar__btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Zeiten
+      </a>
+      <a href="#anfahrt" class="mobile-bar__btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        Anfahrt
+      </a>
+    </div>
+  </nav>
+
   <script>
     // Leaflet map – CartoDB Positron (keine falschen POI-Einträge)
     const map = L.map('praxis-map', { scrollWheelZoom: false, zoomControl: true })
