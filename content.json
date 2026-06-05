@@ -1,9 +1,9 @@
 {
   "aktuelles": [],
   "urlaub": {
-    "aktiv": false,
-    "von": "",
-    "bis": "",
-    "nachricht": ""
+    "aktiv": true,
+    "von": "2004-02-04",
+    "bis": "2005-02-01",
+    "nachricht": "Wir sind ab dem 02. Februar wieder da"
   }
 }
