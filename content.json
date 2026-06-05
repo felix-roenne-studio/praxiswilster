@@ -1,8 +1,9 @@
 {
-  "aktuelles": [
-    {
-      "title": "Urlaub",
-      "text": "Urlaub von heute bis morgen"
-    }
-  ]
+  "aktuelles": [],
+  "urlaub": {
+    "aktiv": false,
+    "von": "",
+    "bis": "",
+    "nachricht": ""
+  }
 }

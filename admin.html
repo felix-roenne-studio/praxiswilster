@@ -187,6 +187,52 @@
         .add-btn:hover { color: rgba(255,255,255,0.7); border-color: rgba(255,255,255,0.35); }
         .add-btn-icon { font-size: 16px; line-height: 1; }
 
+        /* Toggle */
+        .toggle-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+        }
+        .toggle-label {
+            font-size: 13px; font-weight: 300;
+            color: rgba(255,255,255,0.6);
+        }
+        .toggle {
+            position: relative;
+            width: 40px; height: 22px;
+            flex-shrink: 0;
+        }
+        .toggle input { opacity: 0; width: 0; height: 0; }
+        .toggle-track {
+            position: absolute; inset: 0;
+            background: rgba(255,255,255,0.12);
+            border-radius: 11px;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .toggle-track::after {
+            content: '';
+            position: absolute;
+            top: 3px; left: 3px;
+            width: 16px; height: 16px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.5);
+            transition: transform 0.2s, background 0.2s;
+        }
+        .toggle input:checked + .toggle-track { background: #f0a020; }
+        .toggle input:checked + .toggle-track::after {
+            transform: translateX(18px);
+            background: #fff;
+        }
+
+        .date-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+        }
+        .date-field { display: flex; flex-direction: column; gap: 8px; }
+
         /* Status */
         .status-row {
             display: flex;
@@ -244,6 +290,32 @@
 
     <!-- DASHBOARD -->
     <div id="dash-view">
+
+        <!-- Urlaub -->
+        <div class="section">
+            <span class="section-title">Urlaub</span>
+            <div class="toggle-row">
+                <span class="toggle-label">Urlaubshinweis auf Website anzeigen</span>
+                <label class="toggle">
+                    <input type="checkbox" id="urlaub-aktiv">
+                    <span class="toggle-track"></span>
+                </label>
+            </div>
+            <div class="date-row">
+                <div class="date-field">
+                    <label class="field-label" for="urlaub-von">Von</label>
+                    <input class="field-input" type="date" id="urlaub-von">
+                </div>
+                <div class="date-field">
+                    <label class="field-label" for="urlaub-bis">Bis</label>
+                    <input class="field-input" type="date" id="urlaub-bis">
+                </div>
+            </div>
+            <label class="field-label" for="urlaub-nachricht">Nachricht (optional)</label>
+            <textarea class="field-input" id="urlaub-nachricht" placeholder="z.B. Ab dem 12. August sind wir wieder für Sie da." style="min-height:56px;resize:none"></textarea>
+        </div>
+
+        <hr class="divider">
 
         <!-- Aktuelles -->
         <div class="section">
@@ -314,6 +386,12 @@
             const data = await res.json();
             items = data.aktuelles || [];
             renderList();
+            // Urlaub
+            const u = data.urlaub || {};
+            document.getElementById('urlaub-aktiv').checked   = !!u.aktiv;
+            document.getElementById('urlaub-von').value       = u.von || '';
+            document.getElementById('urlaub-bis').value       = u.bis || '';
+            document.getElementById('urlaub-nachricht').value = u.nachricht || '';
         } catch(e) { items = []; renderList(); }
     }
 
@@ -379,7 +457,16 @@
             const res = await fetch('/api/save-content', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ adminPassword: adminPw, aktuelles: items }),
+                body: JSON.stringify({
+                    adminPassword: adminPw,
+                    aktuelles: items,
+                    urlaub: {
+                        aktiv:     document.getElementById('urlaub-aktiv').checked,
+                        von:       document.getElementById('urlaub-von').value,
+                        bis:       document.getElementById('urlaub-bis').value,
+                        nachricht: document.getElementById('urlaub-nachricht').value.trim(),
+                    },
+                }),
             });
             const data = await res.json();
             if (data.ok) {

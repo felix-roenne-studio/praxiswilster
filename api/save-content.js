@@ -1,7 +1,7 @@
 export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).end();
 
-  const { adminPassword, aktuelles } = req.body;
+  const { adminPassword, aktuelles, urlaub } = req.body;
 
   if (adminPassword !== process.env.ADMIN_PASSWORD) {
     return res.status(401).json({ ok: false, error: 'Unauthorized' });
@@ -19,7 +19,7 @@ export default async function handler(req, res) {
   const current = await getRes.json();
   const sha = current.sha;
 
-  const content = Buffer.from(JSON.stringify({ aktuelles }, null, 2)).toString('base64');
+  const content = Buffer.from(JSON.stringify({ aktuelles, urlaub }, null, 2)).toString('base64');
 
   const putRes = await fetch(apiBase, {
     method: 'PUT',

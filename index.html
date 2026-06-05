@@ -104,6 +104,41 @@
       .nav__logo-img  { width: 30px; height: 30px; }
     }
 
+    /* ─── URLAUBS-BANNER ────────────────────── */
+    .urlaub-banner {
+      background: #FEF3C7;
+      border-bottom: 1px solid #FCD34D;
+      padding: 14px var(--s4);
+      display: none;
+    }
+    .urlaub-banner.aktiv { display: block; }
+    .urlaub-banner__inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .urlaub-banner__icon {
+      font-size: 20px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+    .urlaub-banner__text {
+      font-family: var(--ff-body);
+      font-size: 14px;
+      color: #92400E;
+      line-height: 1.5;
+    }
+    .urlaub-banner__dates {
+      font-weight: 600;
+      color: #78350F;
+    }
+    @media (max-width: 768px) {
+      .urlaub-banner { padding: 12px var(--s2); }
+      .urlaub-banner__text { font-size: 13px; }
+    }
+
     /* ─── ANNOUNCEMENT BAR ───────────────────── */
     .bar {
       background: var(--bar-bg);
@@ -1009,6 +1044,16 @@
     </div>
   </nav>
 
+  <!-- Urlaubs-Banner (wird per JS eingeblendet wenn aktiv) -->
+  <div class="urlaub-banner" id="urlaub-banner" role="alert" aria-live="polite">
+    <div class="urlaub-banner__inner">
+      <span class="urlaub-banner__icon">🌴</span>
+      <div class="urlaub-banner__text">
+        <span id="urlaub-banner-text"></span>
+      </div>
+    </div>
+  </div>
+
   <main id="main">
 
     <!-- ═══ HERO ══════════════════════════════════ -->
@@ -1481,6 +1526,20 @@
     fetch('/content.json')
       .then(r => r.json())
       .then(data => {
+        // ── Urlaubs-Banner ──────────────────────────
+        const u = data.urlaub || {};
+        if (u.aktiv && u.von && u.bis) {
+          const fmt = d => new Date(d).toLocaleDateString('de-DE', { day: 'numeric', month: 'long' });
+          const banner = document.getElementById('urlaub-banner');
+          const text   = document.getElementById('urlaub-banner-text');
+          const nachricht = u.nachricht
+            ? ` ${u.nachricht}`
+            : ` Ab dem ${fmt(u.bis)} sind wir wieder für Sie da.`;
+          text.innerHTML = `Die Praxis ist vom <span class="urlaub-banner__dates">${fmt(u.von)} bis ${fmt(u.bis)}</span> geschlossen.${nachricht}`;
+          banner.classList.add('aktiv');
+        }
+
+        // ── Aktuelles ───────────────────────────────
         const items = data.aktuelles || [];
         if (!items.length) return;
         const section = document.getElementById('aktuelles');
