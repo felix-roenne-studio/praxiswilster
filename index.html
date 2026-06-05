@@ -216,19 +216,21 @@
       flex-direction: column;
       background: var(--white);
       border-top: 1px solid var(--border);
-      padding: var(--s2) var(--s2) var(--s3);
+      padding: 0 var(--s2);
       overflow: hidden;
       max-height: 0;
       opacity: 0;
       pointer-events: none;
       transition:
         max-height 320ms var(--ease-out),
-        opacity    220ms var(--ease-out);
+        opacity    220ms var(--ease-out),
+        padding    320ms var(--ease-out);
     }
     .nav__drawer.open {
       max-height: 600px;
       opacity: 1;
       pointer-events: auto;
+      padding: var(--s2) var(--s2) var(--s3);
     }
     .nav__drawer a {
       font-size: 16px; font-weight: 500;
